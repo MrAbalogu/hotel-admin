@@ -48,19 +48,6 @@ ActiveRecord::Schema.define(version: 20160808101159) do
     t.index ["customer_id"], name: "index_book_rooms_on_customer_id"
   end
 
-  create_table "customer_rooms", force: :cascade do |t|
-    t.string   "room"
-    t.string   "room_number"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone_number"
-    t.boolean  "checked_out"
-    t.integer  "room_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["room_id"], name: "index_customer_rooms_on_room_id"
-  end
-
   create_table "customers", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
