@@ -1,0 +1,9 @@
+<%= search_form_for @search do |f| %>
+	<%= f.label :first_name_cont, "First name" %>
+	<%= f.text_field :first_name_cont %>
+	<%= f.label :last_name_cont, "last name" %>
+	<%= f.text_field :last_name_cont %>
+	<%= f.label :sex_cont, "sex" %>
+	<%= f.text_field :sex_cont %>
+	<%= f.submit "\u2315" %>
+<% end %><br>

@@ -1,0 +1,48 @@
+<div class="col-md-8 paper-box">
+<p id="notice"><%= notice %></p>
+<div class="col-md-6">
+<p>
+  <strong>Name:</strong>
+  <%= @room_category.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @room_category.price %>
+</p>
+</div>
+<div class="col-md-6">
+<%= link_to "\u270E", edit_room_category_path(@room_category) %><br>
+<%= link_to "\u2190", room_categories_path %>
+</div>
+</div>
+
+<div class="col-md-12 paper-box">
+<% @room_category.rooms.each do |room| %>
+	<%= link_to room_path(room) do  %>
+<% if room.availability == false %>
+<div class="room-box box-red">
+  <%= room.room_number %></br>
+  <% if room.neatness == false %>
+  <div class="neat-border border-red">
+  </div>
+  <% elsif room.neatness == true %>
+  <div class="neat-border border-green">
+  </div>
+  <% end %>
+</div>
+<% elsif room.availability == true %>
+<div class="room-box box-green">
+  <%= room.room_number %></br>
+  <% if room.neatness == false %>
+  <div class="neat-border border-red">
+  </div>
+  <% elsif room.neatness == true %>
+  <div class="neat-border border-green">
+  </div>
+  <% end %>
+</div>
+<% end %>
+<% end %>
+<% end %>
+</div>

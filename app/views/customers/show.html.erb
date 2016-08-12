@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+    <div class="col-md-12 paper-box">
+	    <div class="col-md-6">	
+			<p><strong>Name:</strong>
+			  <%= @customer.first_name %> <%= @customer.last_name %></p>
+			<p><strong>Phone number:</strong>
+			  <%= @customer.phone_number %></p>
+			<p><strong>Sex:</strong>
+			  <%= @customer.sex %></p>
+		</div>
+		<div class="col-md-6">
+			<p>
+			  <%= link_to "\u270E", edit_customer_path(@customer) %></p>
+			<p><%= link_to "\u2190", customers_path %>
+			</p>
+		</div>
+	</div>
+	
+	<div class="col-md-5 paper-box">
+		<%= form_for [@customer, @customer.book_rooms.build] do |f| %>
+		<% @room = Room.all %>
+		<%= f.label "Room: "%>
+		<%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }) %>
+		<%= f.submit "\u27A1" %>
+	<% end %>
+	<div class="col-md-12 paper-box">
+		<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th>Room</th>
+	      <th>Status</th>
+	      <th>Date</th>
+	    </tr>   
+	  <tbody>
+	    <% @booked.each do |product| %>
+	    <tr>
+	      <td><%= product.room_number %></td>
+	      <td><%= product.checked_out? ? "\u2717" : "\u2713" %></td>
+	      <td><%= product.created_at.strftime("%d %b. %Y") %></td>
+	      <td><%= link_to 'show', book_room_path(product) %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>  
+	  </thead>
+	</table>
+	</div>
+	</div>
+	<div class="col-md-6 paper-box">
+		<p>Add Bill Container</p>
+		<%= form_for [@customer, @customer.bill_containers.build] do |f| %>
+		<%= f.label "name: " %>
+		<%= f.text_field :name %>
+		<%= f.submit "\u27A1" %>
+	<% end %>
+	<div class="col-md-12 paper-box">
+		<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th>Bill name</th>
+	      <th>Status</th>
+	      <th>Date</th>
+	      <th></th>
+	    </tr>   
+	  <tbody>
+	    <% @bill_containers.each do |b| %>
+	    <tr>
+	      <td><%= b.name %></td>
+	      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+	      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+	      <td><%= link_to 'show', bill_container_path(b) %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>  
+	  </thead>
+	</table>
+	</div>
+	</div>
+	
+

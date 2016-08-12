@@ -1,0 +1,2 @@
+module BookRoomsHelper
+end

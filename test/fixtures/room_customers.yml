@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  checked_out: false
+  room: one
+  customer: one
+
+two:
+  checked_out: false
+  room: two
+  customer: two

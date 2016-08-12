@@ -1,0 +1,49 @@
+// Place all the styles related to the Rooms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*** COLORS  ***/
+$gray: #DADFE1;
+.room-box {
+	border: 1px solid gray;
+	padding: 10px;
+	width: 100px;
+	float: left;
+	display: inline-block;
+	height: 120px;
+	text-align: center;
+	&:hover {
+		background-color: $gray;
+	};
+}
+.paper-box {
+	background-color: white;
+	box-shadow: 2px 2px 8px #888888;
+	padding: 20px;
+	margin-bottom: 15px;
+	margin-right: 30px;
+	p {
+		margin-bottom: 2px;
+	}
+}
+
+.box-middle {
+	margin: 10% 10%;
+}
+
+.box-red {
+	background-color: rgba(255, 0, 0, .2)
+}
+.box-green {
+	background-color: rgba(0,128,0, .2)	
+}
+.neat-border {
+	height: 10px;
+	margin-bottom: 20px;
+}
+.border-red {
+	background-color: rgba(255,0,0,.3)
+}
+.border-green {
+	background-color: rgba(0,128,0,.3);
+}

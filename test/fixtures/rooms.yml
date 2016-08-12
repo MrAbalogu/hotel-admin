@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room_number: 1
+  availability: false
+  neatness: false
+
+two:
+  room_number: 1
+  availability: false
+  neatness: false

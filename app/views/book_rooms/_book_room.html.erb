@@ -1,0 +1,2 @@
+booked: <strong><%= book_room.room_number %></strong> customer <strong><%= book_room.first_name %></strong> - <%=book_room.created_at.strftime("%d %b. %Y")%> - checked out: <%= book_room.checked_out %>
+----- <%= link_to 'Edit', edit_book_room_path(@customer_room) %><br>
