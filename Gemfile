@@ -11,7 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'sprockets', '3.6.3'
-gem 'pg'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -29,6 +29,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
+  gem 'pg',             '0.18'
   gem 'rails_12factor', '0.0.2'
   gem 'puma', '~> 3.0'
 end
