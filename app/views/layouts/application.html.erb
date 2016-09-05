@@ -3,7 +3,6 @@
   <head>
     <title>HotelManagement</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -11,54 +10,54 @@
   <body>
 	<div id="wrapper">
 	<div id="sidebar-wrapper">
-	  <ul class="sidebar-nav">
-	    <li class="sidebar-brand">
-	      <a href="/">
-	          Hotel management 
-	      </a>
-	    </li>
+	  <ul class="sidebar-list">  
+	    <a href="/home">
+	          <span class="glyphicon glyphicon-home" style="font-size:40px; margin:10px 40%; color:gray"></span>
+	    </a>
+	    <div class="user_profile_container" style="text-align:center">
+	    	<%= image_tag "img-male", size: "156x150", style: "margin:0 18%" %>
+	    	<span class="glyphicon glyphicon-user"></span> 
+	    </div>
 	    <li>
-	      <%= link_to "Room type", room_categories_path %>
-	    </li>
-	    <li>
-	      <%= link_to "Rooms", rooms_path %>
-	    </li>
-	    <li> 
-	      <%= link_to "Customers", customers_path %>
-	    </li>
-	    <li> 
-	      <%= link_to "All Bookings", book_rooms_path %>
-	    </li>
-	    <li> 
-	      <%= link_to "All Bills", bill_containers_path %>
+		 <span class="glyphicon glyphicon-modal-window"> <%= link_to "Room type", room_categories_path %>
+		</li>
+		<li>
+		 <span class="glyphicon glyphicon-home"> <%= link_to "Rooms", rooms_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-user"> <%= link_to "Customers", customers_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-duplicate"> <%= link_to "All Bookings", book_rooms_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-folder-open"> <%= link_to "All Bills", bill_containers_path %>
+		</li>
+		<li> 
+	     <span class="glyphicon glyphicon-log-out"> <%= link_to "Log out", logout_path, method: "delete" %>
 	    </li>
 	  </ul>
+	  
 	</div>
 
 	<style type="text/css">
-	.btn {
-		margin-bottom: 0;
+	a:hover {
+		text-decoration: none;
 	}
-	input[type=submit]{
-		background-color: white;
+	td {
+		font-weight: lighter;
+		font-size: 12px;
+		padding-bottom: 1px;
 	}
-	input[type=submit]:hover {
-		border: none;
-		-webkit-appearance: none;
-	}
-	.table > thead > tr > th, .table > thead > tr > td, .table > tbody > tr > th, .table > tbody > tr > td, .table > tfoot > tr > th, .table > tfoot > tr > td{
-		padding:0;
+	.glyphicon {
+
 	}
 	</style>
 
 	<!-- /#sidebar-wrapper -->
 	<a href="#menu-toggle" id="menu-toggle">&#8592;</a>
 	  <div class="container-fluid">
-	    <div class="row">
-	      <div class="col-lg-12">
 	      <%= yield %>
-	      </div>
-	    </div>
 	  </div>
 
 

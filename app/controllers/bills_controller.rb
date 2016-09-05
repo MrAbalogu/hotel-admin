@@ -22,7 +22,7 @@ class BillsController < ApplicationController
   end 	
 
   def bills_params 
-  	params.require(:bill).permit(:bill_name, :bill_price, :deposit, :paid)
+  	params.require(:bill).permit(:bill_name, :bill_price, :deposit, :paid, :room_price, :days)
   end 	
   	
 end

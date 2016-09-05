@@ -10,9 +10,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @book_rooms = BookRoom.where room_number: @room.room_number
-    @room.book_rooms << @book_rooms
-    @lodged = @room.book_rooms.group(:first_name)
+    @lodged = @room.book_rooms.all
   end
 
   # GET /rooms/new

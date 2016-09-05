@@ -1,9 +1,206 @@
-<h1>Unicode Icons</h1>
+<div class="col-md-12 paper-box">
+  <div class="row">
+    <header><%= render "search_form_cust" %>
+    </header>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Customer name</th>
+        <th>Phone number</th>
+        <th>Sex</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @c.each do |customer| %>
+        <tr>
+          <td><%= customer.first_name %> <%= customer.last_name %></td>
+          <td><%= customer.phone_number %></td>
+          <td><%= customer.sex %></td>
+          <td><%= link_to 'Open', customer, class: "btn btn-primary btn-xs" %></td>
+        </tr>
+      </a>  
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="col-md-3 paper-box">
+  <div class="row">
+    <header style="color:purple"><span class="glyphicon glyphicon-home"></span> Rooms</header>
+  </div>
+  <% @room_types.each do |r| %>
+  <% if r.name == 'Standard room' %>
+  <h6>
+    <%= link_to 'Standard room', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green; margin-left:10px"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+    <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+  </h6>
+  <% elsif  r.name == 'Executive room' %>
+  <h6>
+    <%= link_to 'Executive room', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  <% elsif  r.name == 'Executive Luxury' %>
+  <h6>
+    <%= link_to 'Executive Luxury', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% elsif  r.name == 'Royal Room' %>
+  <h6>
+    <%= link_to 'Royal Room', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% elsif  r.name == 'Royal Plus' %>
+  <h6>
+    <%= link_to 'Royal Plus', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% elsif  r.name == 'Executive Suite' %>
+  <h6>
+    <%= link_to 'Executive Suite', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% elsif  r.name == 'Royal Suite' %>
+  <h6>
+    <%= link_to 'Royal Suite', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% elsif  r.name == 'Presidential Suite' %>
+  <h6>
+    <%= link_to 'Presidential Suite', r %>: <%= r.rooms.count %>
+    <% h = r.rooms.where availability: true %>
+    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <% d = r.rooms.where neatness: false %>
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    </h6>
+  </h6>
+  <% end %>
+  <% end %>
+</div>
+<div class="col-md-4 paper-box">
+  <div class="row">
+    <header style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span> Recent Bills 
+    <%= render "search_form_bills" %> </header>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>Status</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recent_bills.each do |recent| %>
+        <tr>
+          <% if recent.paid == false && recent.rollback == nil %>
+            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+            <td><%= recent.name %></td>
+            <td style="color:red"><%= recent.paid? ? "\u2713" : "\u2717" %></td>
+            <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
+          <% elsif recent.rollback == true && recent.paid == false %>
+            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+            <td><%= recent.name %></td>
+            <td><span style="color:red; font-style: italic;">Rollback</span></td>
+            <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
+          <% elsif recent.paid == true && recent.rollback == false %>
+            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+            <td><%= recent.name %></td>
+            <td><span style="color:green; font-style: italic;">Paid</span></td>
+            <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
+          <% end %>
+        </tr>
+      </a>  
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+<div class="col-md-4 paper-box">
+  <div class="row">
+    <header style="color:green"> <span class="glyphicon glyphicon-calendar"></span> Recent Bookings
+      <%= render "search_form_book" %>
+    </header>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Room</th>
+        <th>Status</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recent_bookings.each do |recent| %>
+        <tr>
+          <% if recent.checked_out == false %>
+            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+            <td><%= recent.room_number %></td>
+            <td><%= recent.checked_out? ? "\u2717" : "\u2713" %></td>
+            <td><%= link_to 'Check Out', recent, class: "btn btn-danger btn-xs" %></td>
+          <% elsif recent.checked_out == true %>
+            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+            <td><%= recent.room_number %></td>
+            <td><span style="color:red; font-style: italic;">Checked out</span></td>
+          <% end %>  
+        </tr>
+      </a>  
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</div>
+<!-- JavaScript Test -->
+<script>
+var firefoxTestDone = false
+function reportFirefoxTestResult(result) {
+  if (!firefoxTestDone) {
+    $('#ff-bug-test-result')
+      .addClass(result ? 'text-success' : 'text-danger')
+      .text(result ? 'PASS' : 'FAIL')  
+  }
+  firefoxTestDone = true
+}
 
-<h4>C/C++/Java source code: </h4>
-Edit "\u270E" ---> <%= "\u270E" %><br>
-Back "\u2190" ---> <%= "\u2190" %><br>
-Submit "\u27A1" ---> <%= "\u27A1" %><br>
-False "\u274C" ---> <%= "\u274C" %><br>
-False black "\u2717" ---> <%= "\u2717" %><br>
-True "\u2713" ---> <%= "\u2713" %><br>
+$(function () {
+  $('.js-popover').popover()
+  $('.js-tooltip').tooltip()
+  $('#tall-toggle').click(function () {
+    $('#tall').toggle()
+  })
+  $('#ff-bug-input').one('focus', function () {
+    $('#myModal2').on('focus', function () {
+      reportFirefoxTestResult(false)
+    })
+    $('#ff-bug-input').on('focus', function () {
+      reportFirefoxTestResult(true)
+    })
+  })
+})
+</script>

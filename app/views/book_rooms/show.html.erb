@@ -1,7 +1,7 @@
 <div class="col-md-4 paper-box box-middle">
-	<%= @book_room.first_name %> is in room <%= @book_room.room_number %>
+	<%= @book_room.customer_first_name %> is in room <%= @book_room.room_number %>
 	<%= form_for @book_room do |f| %>
-	  <%= f.label :checked_out %>
+	  <%= f.label "Check out" %>
 	  <%= f.check_box :checked_out %>
 	  <%= f.submit "\u27A1" %>
 	<% end %> 

@@ -1,22 +1,24 @@
 <%= render "search_form" %>
 <div class="col-md-12 paper-box">
-<table class="table table-hover">
+<table class="table table-bordered">
   <thead>
     <tr>
-      <th>first Name</th>
-      <th>last name</th>
-      <th>phone</th>
+      <th>Name</th>
+      <th>Phone number</th>
+      <th>Room number</th>
+      <th>Status</th>
+      <th>Date</th>
       <th colspan="3"></th>
     </tr>   
   <tbody>
-    <% @book_rooms.order("created_at DESC").each do |product| %>
+    <% @book_rooms.order("created_at DESC").each do |b| %>
     <tr>
-      <td><%= product.first_name %></td>
-      <td><%= product.last_name %></td>
-      <td><%= product.phone_number %></td>
-      <td><%= product.room_number %></td>
-      <td><%= product.checked_out? ? "\u2717" : "\u2713" %></td>
-      <td><%= product.created_at.strftime("%d %b. %Y") %></td>
+      <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+      <td><%= b.phone_number %></td>
+      <td><%= b.room_number %></td>
+      <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+      <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
     </tr>
     <% end %>
   </tbody>  

@@ -28,9 +28,11 @@ class BookRoomsController < ApplicationController
   end  
 
   def update 
+    @customer = Customer.find @book_room.customer_id
     @book_room.update(book_rooms_params)
-    redirect_to @book_room
-    flash[:notice] = "Customer has checked out"
+    bill_container = BillContainer.where(room_id: @book_room.room_id).first
+    redirect_to bill_container_path(bill_container.id) 
+    flash[:notice] = "Customer has checked out. Ensure you check customer bill before checking him out"
   end   
 
   private 
@@ -40,7 +42,7 @@ class BookRoomsController < ApplicationController
   end   
 
   def book_rooms_params 
-  	params.require(:book_room).permit(:room, :first_name, :last_name, :phone_number, :checked_out)
+  	params.require(:book_room).permit(:room, :customer_first_name, :customer_last_name, :phone_number, :checked_out, :days, :deposit, :room_price, :rollback)
   end 
 
 end

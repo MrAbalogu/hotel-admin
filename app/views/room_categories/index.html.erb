@@ -16,7 +16,7 @@
       <tr>
         <td><%= room_category.name %></td>
         <td><%= room_category.price %></td>
-        <td><%= link_to 'Show', room_category %></td>
+        <td><%= link_to 'Show', room_category, class: "btn btn-primary btn-xs" %></td>
         <td><%= link_to "\u270E", edit_room_category_path(room_category) %></td>
       </tr>
     <% end %>

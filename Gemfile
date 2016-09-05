@@ -11,7 +11,9 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'sprockets', '3.6.3'
-
+gem 'pdfkit'
+# gem 'bcrypt',               '3.1.7'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -23,6 +25,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'sqlite3'
+  gem 'pry'
+  # require 'pry'; binding.pry
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

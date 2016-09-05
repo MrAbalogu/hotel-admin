@@ -1,9 +1,18 @@
-<%= search_form_for @search do |f| %>
-	<%= f.label :first_name_cont, "First name" %>
-	<%= f.text_field :first_name_cont %>
-	<%= f.label :last_name_cont, "last name" %>
-	<%= f.text_field :last_name_cont %>
-	<%= f.label :sex_cont, "sex" %>
-	<%= f.text_field :sex_cont %>
-	<%= f.submit "\u2315" %>
-<% end %><br>
+	<%= search_form_for @search, :html => {:class => "form-inline center"} do |f| %>
+		<div class="form-group">
+		<%= f.label :first_name_cont, "First name", class: "sr-only" %>
+		<%= f.search_field :first_name_cont, class: "form-control", placeholder: "First name" %>
+	    </div>
+	    <div class="form-group">
+		<%= f.label :last_name_cont, "last name", class: "sr-only" %>
+		<%= f.search_field :last_name_cont, class: "form-control", placeholder: "Last name" %>
+		</div>
+		<div class="form-group">
+		<%= f.label :phone_number_cont, "sex", class: "sr-only" %>
+		<%= f.search_field :phone_number_cont, class: "form-control", placeholder: "Phone number" %>
+		</div>
+		<div class="form-group">
+		<%= f.submit "\u2315", class: "form-control"  %>
+		</div>
+		<%= link_to '', new_customer_path, class: "glyphicon glyphicon-plus" %>
+	<% end %>

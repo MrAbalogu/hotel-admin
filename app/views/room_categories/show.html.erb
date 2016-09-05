@@ -1,20 +1,39 @@
 <div class="col-md-8 paper-box">
 <p id="notice"><%= notice %></p>
+<div class="col-md-3">
+  <% if @room_category.name == "Standard room" %>
+  <%= image_tag "standard-room", size: "136x130" %>
+  <% elsif @room_category.name == "Executive room" %>
+  <%= image_tag "executive-room", size: "136x130" %>
+  <% elsif @room_category.name == "Executive Luxury" %>
+  <%= image_tag "executive-room", size: "136x130" %>
+  <% elsif @room_category.name == "Royal Room" %>
+  <%= image_tag "royal-room", size: "136x130" %>
+  <% elsif @room_category.name == "Royal Plus" %>
+  <%= image_tag "royal-plus", size: "136x130" %>
+  <% elsif @room_category.name == "Executive Suite" %>
+  <%= image_tag "executive-suite", size: "136x130" %>
+  <% elsif @room_category.name == "Royal Suite" %>
+  <%= image_tag "royal-suite", size: "136x130" %>
+  <% elsif @room_category.name == "Presidential Suite" %>
+  <%= image_tag "presidential-suite", size: "136x130" %>
+  <% end  %>
+</div>
 <div class="col-md-6">
-<p>
-  <strong>Name:</strong>
-  <%= @room_category.name %>
-</p>
+  <div class="room-desc-container">
+    <p>
+      <strong>Name:</strong>
+      <%= @room_category.name %>
+    </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @room_category.price %>
-</p>
-</div>
-<div class="col-md-6">
-<%= link_to "\u270E", edit_room_category_path(@room_category) %><br>
-<%= link_to "\u2190", room_categories_path %>
-</div>
+    <p>
+      <strong>Price:</strong>
+      &#8358; <%= @room_category.price %>
+    </p>
+    <%= link_to "\u270E", edit_room_category_path(@room_category) %><br>
+    <%= link_to "\u2190", room_categories_path %>
+    </div>
+  </div>
 </div>
 
 <div class="col-md-12 paper-box">

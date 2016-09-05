@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+  root   'sessions#new'
+  resources :users
   resources :room_categories
-  root 'pages#home'
+  get '/home' => "pages#home"
 
   resources :room_customers
   resources :customers

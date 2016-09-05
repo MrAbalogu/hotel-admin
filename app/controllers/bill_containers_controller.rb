@@ -11,6 +11,7 @@ class BillContainersController < ApplicationController
     @credit = @bill_cont.bills.sum(:bill_price)
     @deposit = @bill_cont.bills.sum(:deposit)
     @balance = @deposit - @credit 
+    @bill = @mybills.group(:date)
   end   
 
   def edit 
@@ -42,6 +43,6 @@ class BillContainersController < ApplicationController
   end 	
 
   def bill_cont_params 
-  	params.require(:bill_container).permit(:name, :paid, :first_name, :last_namer)
+  	params.require(:bill_container).permit(:name, :paid, :customer_first_name, :customer_last_namer, :room_id, :rollback)
   end 
 end

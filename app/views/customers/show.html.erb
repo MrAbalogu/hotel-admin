@@ -1,30 +1,70 @@
 <p id="notice"><%= notice %></p>
     <div class="col-md-12 paper-box">
-	    <div class="col-md-6">	
+	    <div class="col-md-2">	
+	    	<% if @customer.sex == 'female' %>
+			<%= image_tag "img-female", size: "136x130"%>
+			<% elsif @customer.sex == 'male' %>
+			<%= image_tag "img-male", size: "136x130"%>
+			<% end %>
+		</div>
+		<div class="col-md-6">
 			<p><strong>Name:</strong>
 			  <%= @customer.first_name %> <%= @customer.last_name %></p>
 			<p><strong>Phone number:</strong>
 			  <%= @customer.phone_number %></p>
 			<p><strong>Sex:</strong>
 			  <%= @customer.sex %></p>
-		</div>
-		<div class="col-md-6">
 			<p>
 			  <%= link_to "\u270E", edit_customer_path(@customer) %></p>
 			<p><%= link_to "\u2190", customers_path %>
 			</p>
 		</div>
 	</div>
-	
-	<div class="col-md-5 paper-box">
-		<%= form_for [@customer, @customer.book_rooms.build] do |f| %>
-		<% @room = Room.all %>
-		<%= f.label "Room: "%>
-		<%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }) %>
-		<%= f.submit "\u27A1" %>
-	<% end %>
+	<div class="col-md-6">
+		<div class="col-md-12" style="margin-bottom:10px">
+			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		      Book Room
+		    </button>
+		    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		          <h4 class="modal-title" id="myModalLabel">Book Room</h4>
+		        </div>
+		        <div class="container">
+			        <%= form_for [@customer, @customer.book_rooms.build] do |f| %>
+					<% @room = Room.all %>
+					<div class="form-group row" style="margin-top:20px">
+					  <%= f.label "Room: ", class: "col-xs-2 col-form-label"%>
+					  <div class="col-xs-3">
+					    <%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }) %><br>
+					  </div>
+				    </div>
+				    <div class="form-group row">
+					  <%= f.label :days, class: "col-xs-2 col-form-label" %>
+					  <div class="col-xs-3">
+					    <%= f.number_field :days, class: "form-control" %><br>
+					  </div>  
+				    </div>
+				    <div class="form-group row">
+					  <%= f.label :deposit, class: "col-xs-2 col-form-label" %>
+					  <div class="col-xs-3">
+					    <%= f.number_field :deposit, class: "form-control" %>
+					  </div>  
+					</div>  		    
+			    </div>
+		        <div class="modal-footer">
+		        	<%= f.submit "Submit", class: "btn btn-primary"  %>
+		        </div>
+		        <% end %>
+		      </div>
+		    </div>
+		    </div>
+	    </div>   
 	<div class="col-md-12 paper-box">
-		<table class="table table-hover">
+	<table class="table table-hover">
 	  <thead>
 	    <tr>
 	      <th>Room</th>
@@ -32,48 +72,71 @@
 	      <th>Date</th>
 	    </tr>   
 	  <tbody>
-	    <% @booked.each do |product| %>
+	    <% @booked.each do |b| %>
 	    <tr>
-	      <td><%= product.room_number %></td>
-	      <td><%= product.checked_out? ? "\u2717" : "\u2713" %></td>
-	      <td><%= product.created_at.strftime("%d %b. %Y") %></td>
-	      <td><%= link_to 'show', book_room_path(product) %></td>
-	    </tr>
-	    <% end %>
-	  </tbody>  
-	  </thead>
-	</table>
-	</div>
-	</div>
-	<div class="col-md-6 paper-box">
-		<p>Add Bill Container</p>
-		<%= form_for [@customer, @customer.bill_containers.build] do |f| %>
-		<%= f.label "name: " %>
-		<%= f.text_field :name %>
-		<%= f.submit "\u27A1" %>
-	<% end %>
-	<div class="col-md-12 paper-box">
-		<table class="table table-hover">
-	  <thead>
-	    <tr>
-	      <th>Bill name</th>
-	      <th>Status</th>
-	      <th>Date</th>
-	      <th></th>
-	    </tr>   
-	  <tbody>
-	    <% @bill_containers.each do |b| %>
-	    <tr>
-	      <td><%= b.name %></td>
-	      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+	      <td><%= b.room_number %></td>
+	      <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
 	      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
-	      <td><%= link_to 'show', bill_container_path(b) %></td>
+	      <td><%= link_to 'Check out', book_room_path(b), class: "btn btn-danger btn-xs" %></td>
+	      <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
 	    </tr>
 	    <% end %>
 	  </tbody>  
 	  </thead>
 	</table>
 	</div>
-	</div>
+	</div>	
 	
+	<div class="col-md-6">
+		<h3>Bills</h3>
+		<div class="col-md-12 paper-box">
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th>Room number</th>
+		      <th>Status</th>
+		      <th>Date</th>
+		      <th></th>
+		    </tr>   
+		  <tbody>
+		    <% @bill_containers.each do |b| %>
+		    <tr>
+		      <td><%= b.name %></td>
+		      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+		      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+		      <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
+		    </tr>
+		    <% end %>
+		  </tbody>  
+		  </thead>
+		</table>
+		</div>
+	</div>
+<!-- JavaScript Test -->
+<script>
+var firefoxTestDone = false
+function reportFirefoxTestResult(result) {
+  if (!firefoxTestDone) {
+    $('#ff-bug-test-result')
+      .addClass(result ? 'text-success' : 'text-danger')
+      .text(result ? 'PASS' : 'FAIL')  
+  }
+  firefoxTestDone = true
+}
 
+$(function () {
+  $('.js-popover').popover()
+  $('.js-tooltip').tooltip()
+  $('#tall-toggle').click(function () {
+    $('#tall').toggle()
+  })
+  $('#ff-bug-input').one('focus', function () {
+    $('#myModal2').on('focus', function () {
+      reportFirefoxTestResult(false)
+    })
+    $('#ff-bug-input').on('focus', function () {
+      reportFirefoxTestResult(true)
+    })
+  })
+})
+</script>

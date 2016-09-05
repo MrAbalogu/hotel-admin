@@ -10,5 +10,7 @@ class CreateRoomCategories < ActiveRecord::Migration[5.0]
     add_reference :rooms, :room_category, index: true
     add_column :rooms, :room_price, :integer
     add_column :rooms, :room_type, :string 
+    add_column :bills, :days, :integer 
+    add_column :bills, :room_price, :integer 
   end
 end

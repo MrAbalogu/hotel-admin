@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+<div class="col-md-6 paper-box">
+<div class="col-md-4">  
+  <%= image_tag "img-female", size: "136x130" %>
+</div>
+<div class="col-md-8">
+<p>
+  <strong>Name:</strong>
+  <%= @user.first_name %> <%= @user.last_name %>
+</p>
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Edit 
+</button>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+		    <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+        </div>
+        <div class="container">
+	        <%= form_for(@user) do |f| %>
+			<%= f.label :first_name %>
+			<%= f.text_field :first_name  %><br>
+			<%= f.label :last_name %>
+			<%= f.text_field :last_name  %><br>
+			<%= f.label :username %>
+			<%= f.text_field :username %><br>
+			<%= f.label :password, "Password" %>
+			<%= f.password_field :password  %><br>
+	    </div>
+        <div class="modal-footer">
+        	<%= f.submit "Update", class: "btn btn-primary" %>
+        	<% end %>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script>
+var firefoxTestDone = false
+function reportFirefoxTestResult(result) {
+  if (!firefoxTestDone) {
+    $('#ff-bug-test-result')
+      .addClass(result ? 'text-success' : 'text-danger')
+      .text(result ? 'PASS' : 'FAIL')  
+  }
+  firefoxTestDone = true
+}
+
+$(function () {
+  $('.js-popover').popover()
+  $('.js-tooltip').tooltip()
+  $('#tall-toggle').click(function () {
+    $('#tall').toggle()
+  })
+  $('#ff-bug-input').one('focus', function () {
+    $('#myModal2').on('focus', function () {
+      reportFirefoxTestResult(false)
+    })
+    $('#ff-bug-input').on('focus', function () {
+      reportFirefoxTestResult(true)
+    })
+  })
+})
+</script>

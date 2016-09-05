@@ -1,39 +1,86 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" style="color:red"><%= notice %></p>
 <div class="col-md-12">
-  <h2><%= @bill_cont.name %> bill for <%= @bill_cont.first_name %> <%= @bill_cont.last_name %></h2>
+  <h2>Bill for room <%= @bill_cont.name %>  <%= @bill_cont.customer_first_name %> <%= @bill_cont.customer_last_name %></h2>
 
-  <div class="col-md-6 paper-box">
-  		<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
-		<%= f.label "Deposit: " %>
-		<%= f.number_field :deposit %>
-		<%= f.submit "\u27A1" %>
-		<% end %>
-		<br>
-		<p>Add Bills</p>
-		<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
-		<%= f.label "bill name: " %>
-		<%= f.text_field :bill_name %><br>
-		<%= f.label "bill price: " %>
-		<%= f.number_field :bill_price %>
-		<%= f.submit "\u27A1" %>
-		<% end %>
+  <div class="col-md-8 paper-box">
+  		<div class="col-md-4">
+	  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			      Add 
+			</button>
+		    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+		  		    <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+			        </div>
+			        <div class="container">
+				        <%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
+						<%= f.label "Deposit: " %>
+						<%= f.number_field :deposit %>
+						<%= f.submit "\u27A1" %>
+						<% end %>
+						<p>Add Bills</p>
+						<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
+						<%= f.label "bill name: " %>
+						<%= f.text_field :bill_name %><br>
+						<%= f.label "bill price: " %>
+						<%= f.number_field :bill_price %>
+						<%= f.submit "\u27A1" %>
+						<% end %>
+				    </div>
+			        <div class="modal-footer">
+			        </div>
+		          </div>
+		        </div>
+	        </div>
+	    </div>    
+	    <div class="col-md-8">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Days</th>
+					<th>Bill</th>
+				</tr>
+			</thead>
+			<tbody>
+		    <% @bill.each do |b| %>
+		      <tr style="color:red">
+		      	<% @days = distance_of_time_in_words(Time.now, b.created_at.at_midnight) %>
+		      	<% @room = Room.find @bill_cont.room_id %>
+		      	<td><%= @days %></td>
+		        <td><%= @room.room_category.price * @days.to_i %> -> make sure you add to bill</td>
+		      </tr>
+		    <% end %>
+		    </tbody>  
+		</table>
+		</div>
   </div>
-  <div class="col-md-6 paper-box">
+  <div id="mydiv" class="col-md-8 paper-box">
+  	<h4>Bill for room <%= @bill_cont.name %>  <%= @bill_cont.customer_first_name %> <%= @bill_cont.customer_last_name %></h4>
+  	<% if @bill_cont.rollback == true %>
+  	<div class="rollback">ROLLBACK</div>
+  	<% else %>
+  	<% end %>
 	<table class="table table-hover">
 	  <thead>
 	    <tr>
 	      <th>Deposit</th>
 	      <th>Bill Name</th>
 	      <th>Price &#8358;</th>
+	      <th>Days</th>
+	      <th>Room price</th>
 	      <th>Date</th>
 	    </tr>   
 	  <tbody>
-	    <% @mybills.each do |product| %>
+	    <% @mybills.each do |b| %>
 	      <tr>
-	      	<td><%= product.deposit %></td>
-	        <td><%= product.bill_name %></td>
-	        <td><%= product.bill_price %></td>
-	        <td><%= product.created_at.strftime("%d %b. %Y") %></td>
+	      	<td><%= b.deposit %></td>
+	        <td><%= b.bill_name %></td>
+	        <td><%= b.bill_price %></td>
+	        <td><%= b.days %></td>
+	        <td><%= b.room_price %></td>
+	        <td><%= b.created_at.strftime("%d %b. %Y") %></td>
 	      </tr>
 	    <% end %>
 	  </tbody>  
@@ -42,10 +89,59 @@
 	<strong>Deposit: &#8358; <%= @deposit %></strong><br>
 	Credit: &#8358; <%= @credit %><br>
 	Balance: &#8358; <%= @balance%>
-	<%= form_for @bill_cont do |f| %>
+  </div>
+  <div class="col-md-8 paper-box">
+  	<%= form_for @bill_cont do |f| %>
 		<%= f.label :paid %>
 		<%= f.check_box :paid %>
 		<%= f.submit "\u27A1" %>
 	<% end %>
+	<a type="button" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModal2"></a>
+    <div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+  		    <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+	        </div>
+	        <div class="container">
+		     <%= form_for @bill_cont do |f| %>
+				<%= f.label :rollback %>
+				<%= f.check_box :rollback %>
+				<%= f.submit "\u27A1" %>
+			<% end %>
+		    </div>
+	        <div class="modal-footer">
+	        </div>
+          </div>
+        </div>
+    </div>
   </div>
 </div>  
+<input type="button" value="Print Bill" onclick="PrintElem('#mydiv')" />
+<script type="text/javascript">
+
+    function PrintElem(elem)
+    {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) 
+    {
+        var mywindow = window.open('', 'my div', 'height=1600,width=2400');
+        mywindow.document.write('<html style="margin-left:100px;font-size:30px"><head><title>Bill</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('</head><body>');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+</script>
