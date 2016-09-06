@@ -1,6 +1,5 @@
 class BookRoom < ApplicationRecord
   belongs_to :customer
-  has_many :room_customers
   belongs_to :rooms
   after_create :add_details
   after_update :add_dynamic_change

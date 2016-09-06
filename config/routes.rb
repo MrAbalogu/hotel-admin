@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   resources :room_categories
   get '/home' => "pages#home"
 
-  resources :room_customers
   resources :customers
   resources :rooms
   resources :customer_rooms
@@ -15,7 +14,6 @@ Rails.application.routes.draw do
   resources :bill_containers
 
   resources :rooms do 
-  	resources :room_customers
     resources :customer_rooms
   end 	
 

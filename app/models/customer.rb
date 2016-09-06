@@ -1,8 +1,7 @@
 class Customer < ApplicationRecord
 	has_many :bill_containers
 	has_many :book_rooms, :dependent => :destroy
-	has_many :room_customers
-	has_many :rooms, :through => :room_customers
+	has_many :rooms
 	validates_uniqueness_of :first_name, scope: :last_name
 	validates :first_name, presence: true
 	validates :last_name, presence: true

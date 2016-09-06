@@ -129,7 +129,7 @@
             <td><%= recent.name %></td>
             <td><span style="color:red; font-style: italic;">Rollback</span></td>
             <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
-          <% elsif recent.paid == true && recent.rollback == false %>
+          <% elsif recent.paid == true && recent.rollback == nil %>
             <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
             <td><%= recent.name %></td>
             <td><span style="color:green; font-style: italic;">Paid</span></td>
