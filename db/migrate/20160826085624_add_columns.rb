@@ -3,5 +3,6 @@ class AddColumns < ActiveRecord::Migration[5.0]
   	add_column :book_rooms, :rollback, :boolean 
   	add_column :bill_containers, :rollback, :boolean 
   	add_column :users, :password, :string
+  	drop_table :room_customers
   end
 end

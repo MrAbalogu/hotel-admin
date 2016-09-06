@@ -76,17 +76,6 @@ ActiveRecord::Schema.define(version: 20160826085624) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "room_customers", force: :cascade do |t|
-    t.boolean  "checked_out"
-    t.string   "room"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "book_room_id"
-    t.integer  "room_id"
-    t.index ["book_room_id"], name: "index_room_customers_on_book_room_id"
-    t.index ["room_id"], name: "index_room_customers_on_room_id"
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.string   "room_number"
     t.boolean  "availability"
