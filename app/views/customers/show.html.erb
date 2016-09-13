@@ -49,6 +49,12 @@
 					  </div>  
 				    </div>
 				    <div class="form-group row">
+					  <%= f.label :discount, class: "col-xs-2 col-form-label" %>
+					  <div class="col-xs-3">
+					    <%= f.check_box :discount, class: "form-control" %><br>
+					  </div>  
+				    </div>
+				    <div class="form-group row">
 					  <%= f.label :deposit, class: "col-xs-2 col-form-label" %>
 					  <div class="col-xs-3">
 					    <%= f.number_field :deposit, class: "form-control" %>
@@ -74,11 +80,23 @@
 	  <tbody>
 	    <% @booked.each do |b| %>
 	    <tr>
-	      <td><%= b.room_number %></td>
-	      <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-	      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
-	      <td><%= link_to 'Check out', book_room_path(b), class: "btn btn-danger btn-xs" %></td>
-	      <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
+	      <% if b.checked_out == true %>
+	      	<td><%= b.room_number %></td>
+	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+	        <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+	        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
+	      <% elsif b.rollback == true %>
+	        <td><%= b.room_number %></td>
+	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+	        <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+	      <% else %>  
+	      	<td><%= b.room_number %></td>
+	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+	        <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+	        <td><%= link_to 'Check out', book_room_path(b), class: "btn btn-danger btn-xs" %></td>
+	        <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
+	      <% end %>
 	    </tr>
 	    <% end %>
 	  </tbody>  

@@ -42,7 +42,7 @@ class BookRoomsController < ApplicationController
   end   
 
   def book_rooms_params 
-  	params.require(:book_room).permit(:room, :customer_first_name, :customer_last_name, :phone_number, :checked_out, :days, :deposit, :room_price, :rollback)
+  	params.require(:book_room).permit(:room, :customer_first_name, :customer_last_name, :phone_number, :checked_out, :days, :deposit, :room_price, :rollback, :discount)
   end 
 
 end

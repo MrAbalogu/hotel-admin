@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160826085624) do
     t.string   "room_price"
     t.integer  "room_id"
     t.boolean  "rollback"
+    t.boolean  "discount"
     t.index ["customer_id"], name: "index_book_rooms_on_customer_id"
     t.index ["room_id"], name: "index_book_rooms_on_room_id"
   end

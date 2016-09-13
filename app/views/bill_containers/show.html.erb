@@ -4,7 +4,7 @@
 
   <div class="col-md-8 paper-box">
   		<div class="col-md-4">
-	  		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	  		<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
 			      Add 
 			</button>
 		    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -12,7 +12,7 @@
 			      <div class="modal-content">
 		  		    <div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+			          <h4 class="modal-title" id="myModalLabel">Add Deposit</h4>
 			        </div>
 			        <div class="container">
 				        <%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
@@ -20,7 +20,47 @@
 						<%= f.number_field :deposit %>
 						<%= f.submit "\u27A1" %>
 						<% end %>
-						<p>Add Bills</p>
+				    </div>
+			        <div class="modal-footer">
+			        </div>
+		          </div>
+		        </div>
+	        </div>
+	        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal1">
+			      Ref 
+			</button>
+			<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+		  		    <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			          <h4 class="modal-title" id="myModalLabel">Refund</h4>
+			        </div>
+			        <div class="container">
+						<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
+						<%= f.label "bill name: " %>
+						<%= f.text_field :bill_name, placeholder: "Refund" %><br>
+						<%= f.label "Refund: " %>
+						<%= f.number_field :bill_price %>
+						<%= f.submit "\u27A1" %>
+						<% end %>
+				    </div>
+			        <div class="modal-footer">
+			        </div>
+		          </div>
+		        </div>
+	        </div>
+	        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal2">
+			      Bill 
+			</button>
+			<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+		  		    <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+			        </div>
+			        <div class="container">
 						<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
 						<%= f.label "bill name: " %>
 						<%= f.text_field :bill_name %><br>

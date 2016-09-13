@@ -11,7 +11,7 @@ class BillContainersController < ApplicationController
     @credit = @bill_cont.bills.sum(:bill_price)
     @deposit = @bill_cont.bills.sum(:deposit)
     @balance = @deposit - @credit 
-    @bill = @mybills.group(:date)
+    @bill = @mybills.group(:all)
   end   
 
   def edit 

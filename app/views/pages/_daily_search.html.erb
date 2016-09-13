@@ -1,0 +1,7 @@
+<%= search_form_for @search, :html => {:class => "form-inline center"} do |f| %>
+    <div class="form-group">
+    <%= f.label :created_at_in, "Start" %>
+    <%= f.date_field :created_at_gteq, class: 'form-control form-inline input-sm myform', 'datepicker' => true %>
+	<%= f.submit "\u2315", class: "form-control" %>
+	</div>
+<% end %><br>

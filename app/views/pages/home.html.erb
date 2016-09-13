@@ -34,74 +34,146 @@
   <h6>
     <%= link_to 'Standard room', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green; margin-left:10px"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green; margin-left:10px"></span>
+      <span style="color:green;"><%= h.count %></span>
+    </button>
     <% d = r.rooms.where neatness: false %>
-    <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>
   </h6>
   <% elsif  r.name == 'Executive room' %>
   <h6>
     <%= link_to 'Executive room', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   <% elsif  r.name == 'Executive Luxury' %>
   <h6>
     <%= link_to 'Executive Luxury', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% elsif  r.name == 'Royal Room' %>
   <h6>
     <%= link_to 'Royal Room', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% elsif  r.name == 'Royal Plus' %>
   <h6>
     <%= link_to 'Royal Plus', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% elsif  r.name == 'Executive Suite' %>
   <h6>
     <%= link_to 'Executive Suite', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% elsif  r.name == 'Royal Suite' %>
   <h6>
     <%= link_to 'Royal Suite', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% elsif  r.name == 'Presidential Suite' %>
   <h6>
     <%= link_to 'Presidential Suite', r %>: <%= r.rooms.count %>
     <% h = r.rooms.where availability: true %>
-    <span class="glyphicon glyphicon-home" style="color:green"></span><span style="color:green"><%= h.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-home" style="color:green"></span>
+      <span style="color:green"><%= h.count %></span>
+    </button>  
     <% d = r.rooms.where neatness: false %>
-      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span><span style="color:red"><%= d.count %></span>
+    <button class="btn btn-default" style="padding-left:0">
+      <span class="glyphicon glyphicon-trash" style="color:red; margin-left:10px"></span>
+      <span style="color:red"><%= d.count %></span>
+    </button>  
     </h6>
   </h6>
   <% end %>
   <% end %>
+  <a href="/chart">Daily chart</a> ||  
+  <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal1">
+        Dirty rooms 
+  </a>
+  <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Dirty Rooms</h4>
+        </div>
+        <div class="container">
+          <% @rooms.each do |d| %>
+          <% if d.neatness == false %>
+            Room: <%= link_to d.room_number, room_path(d) %><br>
+          <% end %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          Print
+        </div>
+        </div>
+      </div>
+    </div>
 </div>
 <div class="col-md-4 paper-box">
   <div class="row">
@@ -153,7 +225,6 @@
         <th>Name</th>
         <th>Room</th>
         <th>Status</th>
-        <th colspan="2"></th>
       </tr>
     </thead>
     <tbody>
@@ -167,7 +238,7 @@
           <% elsif recent.checked_out == true %>
             <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
             <td><%= recent.room_number %></td>
-            <td><span style="color:red; font-style: italic;">Checked out</span></td>
+            <td><span style="color:white; font-style: italic; font-size:12px" class="btn btn-danger btn-xs">Checked out</span></td>
           <% end %>  
         </tr>
       </a>  

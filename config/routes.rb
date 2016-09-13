@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  root   'sessions#new'
+  root   'pages#home'
   resources :users
   resources :room_categories
   get '/home' => "pages#home"
+  get '/chart' => "pages#daily_chart"
 
   resources :customers
   resources :rooms

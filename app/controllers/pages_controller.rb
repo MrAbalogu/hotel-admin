@@ -24,4 +24,13 @@ class PagesController < ApplicationController
     @search2 = BookRoom.ransack(params[:q]) 
     @bill_conts = @search2.result(distinct: true).desc_order
   end
+
+  def daily_chart
+    @search = BookRoom.ransack(params[:q]) 
+    @book_rooms = @search.result(distinct: true).order("created_at DESC")
+  end   
+
+  def dirty_rooms
+    @rooms = Room.all
+  end   
 end
