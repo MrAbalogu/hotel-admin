@@ -1,9 +1,9 @@
 <div class="col-md-4 paper-box box-middle">
-	<%= @book_room.customer_first_name %> just booked <%= @book_room.room_number %>
+	<%= @book_room.customer_first_name %> booked <%= @book_room.room_number %>  
 	<h4> If customer does not want room: <%= @book_room.room_number %> </h4>
 	<%= form_for @book_room do |f| %>
 	  <%= f.label "Rollback" %>
 	  <%= f.check_box :rollback %>
-	  <%= f.submit "\u27A1" %>
+	  <%= f.submit "\u27A1", data: { confirm: 'Confirm customer is rolling back'} %>
 	<% end %>  
 </div>	

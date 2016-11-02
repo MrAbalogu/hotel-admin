@@ -16,9 +16,11 @@
 			        </div>
 			        <div class="container">
 				        <%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
+				        <%= f.label "R/NO :" %>
+						<%= f.text_field :receipt_no %><br>
 						<%= f.label "Deposit: " %>
 						<%= f.number_field :deposit %>
-						<%= f.submit "\u27A1" %>
+						<%= f.submit "\u27A1", data: { confirm: 'Confirm customer deposit'} %>
 						<% end %>
 				    </div>
 			        <div class="modal-footer">
@@ -26,10 +28,10 @@
 		          </div>
 		        </div>
 	        </div>
-	        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal1">
+	        <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal300">
 			      Ref 
 			</button>
-			<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div id="myModal300" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			    <div class="modal-dialog">
 			      <div class="modal-content">
 		  		    <div class="modal-header">
@@ -42,7 +44,7 @@
 						<%= f.text_field :bill_name, placeholder: "Refund" %><br>
 						<%= f.label "Refund: " %>
 						<%= f.number_field :bill_price %>
-						<%= f.submit "\u27A1" %>
+						<%= f.submit "\u27A1", data: { confirm: 'Confirm customer refund'} %>
 						<% end %>
 				    </div>
 			        <div class="modal-footer">
@@ -62,11 +64,13 @@
 			        </div>
 			        <div class="container">
 						<%= form_for [@bill_cont, @bill_cont.bills.build] do |f| %>
+						<%= f.label "R/NO :" %>
+						<%= f.text_field :receipt_no %><br>
 						<%= f.label "bill name: " %>
 						<%= f.text_field :bill_name %><br>
 						<%= f.label "bill price: " %>
 						<%= f.number_field :bill_price %>
-						<%= f.submit "\u27A1" %>
+						<%= f.submit "\u27A1", data: { confirm: 'Confirm customers bill'} %>
 						<% end %>
 				    </div>
 			        <div class="modal-footer">
@@ -84,20 +88,28 @@
 				</tr>
 			</thead>
 			<tbody>
-		    <% @bill.each do |b| %>
 		      <tr style="color:red">
-		      	<% @days = distance_of_time_in_words(Time.now, b.created_at.at_midnight) %>
+		      	<% @days = distance_of_time_in_words(Time.now, @bill_cont.created_at.at_midnight) %>
 		      	<% @room = Room.find @bill_cont.room_id %>
 		      	<td><%= @days %></td>
-		        <td><%= @room.room_category.price * @days.to_i %> -> make sure you add to bill</td>
+		        <td>make sure you crosscheck bill carefully</td>
 		      </tr>
-		    <% end %>
 		    </tbody>  
 		</table>
 		</div>
   </div>
-  <div id="mydiv" class="col-md-8 paper-box">
-  	<h4>Bill for room <%= @bill_cont.name %>  <%= @bill_cont.customer_first_name %> <%= @bill_cont.customer_last_name %></h4>
+
+      <!------------------------
+
+      BILL TO GET PRINTED 
+
+      -------------------------->
+
+  <div id="mydiv" class="col-md-8 paper-box" >
+  	<div >
+	  	<h3 style="color:orange; margin-bottom:5px">Benny Hotel Lagos</h3> <span>bennyhotellagos.com</span>
+	  	<h4>Bill for <%= @bill_cont.customer_first_name %> <%= @bill_cont.customer_last_name %></h4>
+  	</div>
   	<% if @bill_cont.rollback == true %>
   	<div class="rollback">ROLLBACK</div>
   	<% else %>
@@ -106,21 +118,28 @@
 	  <thead>
 	    <tr>
 	      <th>Deposit</th>
+	      <th>R/No.</th>
 	      <th>Bill Name</th>
+	      <th>Room</th>
 	      <th>Price &#8358;</th>
 	      <th>Days</th>
 	      <th>Room price</th>
 	      <th>Date</th>
+	      <th colspan="3"></th>
 	    </tr>   
 	  <tbody>
 	    <% @mybills.each do |b| %>
 	      <tr>
 	      	<td><%= b.deposit %></td>
+	      	<td><%= b.receipt_no %></td>
 	        <td><%= b.bill_name %></td>
+	        <td><%= b.room_number %></td>
 	        <td><%= b.bill_price %></td>
 	        <td><%= b.days %></td>
 	        <td><%= b.room_price %></td>
 	        <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+	        <td><%= link_to "", edit_bill_path(b), class: "glyphicon glyphicon-pencil" %></td>
+	        <td><%= link_to '', b, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"%></td>
 	      </tr>
 	    <% end %>
 	  </tbody>  
@@ -134,21 +153,21 @@
   	<%= form_for @bill_cont do |f| %>
 		<%= f.label :paid %>
 		<%= f.check_box :paid %>
-		<%= f.submit "\u27A1" %>
+		<%= f.submit "\u27A1", data: { confirm: 'Confirm customer has paid'} %>
 	<% end %>
-	<a type="button" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModal2"></a>
-    <div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<a type="button" class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModal3"></a>
+    <div id="myModal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
   		    <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	          <h4 class="modal-title" id="myModalLabel">Add Bill</h4>
+	          <h4 class="modal-title" id="myModalLabel">Delete</h4>
 	        </div>
 	        <div class="container">
 		     <%= form_for @bill_cont do |f| %>
 				<%= f.label :rollback %>
 				<%= f.check_box :rollback %>
-				<%= f.submit "\u27A1" %>
+				<%= f.submit "\u27A1", data: { confirm: 'Confirm bill is rolling back. note bill will be moved to recycle bin'} %>
 			<% end %>
 		    </div>
 	        <div class="modal-footer">
@@ -169,8 +188,7 @@
     function Popup(data) 
     {
         var mywindow = window.open('', 'my div', 'height=1600,width=2400');
-        mywindow.document.write('<html style="margin-left:100px;font-size:30px"><head><title>Bill</title>');
-        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        mywindow.document.write('<html><head><title>Bill</title>');
         mywindow.document.write('</head><body>');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');

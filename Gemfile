@@ -14,6 +14,8 @@ gem 'sprockets', '3.6.3'
 gem 'pdfkit'
 # gem 'bcrypt',               '3.1.7'
 gem 'wkhtmltopdf-binary'
+gem "paperclip"
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -1,30 +1,16 @@
-<div class="col-md-12 paper-box">
+<div class="col-md-12 paper-box" style="margin-top:20px">
   <div class="row">
-    <header><%= render "search_form_cust" %>
+    <header style="text-align:center"><%= render "search_form_cust" %>
     </header>
   </div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Customer name</th>
-        <th>Phone number</th>
-        <th>Sex</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @c.each do |customer| %>
-        <tr>
-          <td><%= customer.first_name %> <%= customer.last_name %></td>
-          <td><%= customer.phone_number %></td>
-          <td><%= customer.sex %></td>
-          <td><%= link_to 'Open', customer, class: "btn btn-primary btn-xs" %></td>
-        </tr>
-      </a>  
-      <% end %>
-    </tbody>
-  </table>
 </div>
+
+<!------------------------------------------------------------------
+
+      ALL ROOMS
+
+  ------------------------------------------------------------------>
+
 <div class="col-md-3 paper-box">
   <div class="row">
     <header style="color:purple"><span class="glyphicon glyphicon-home"></span> Rooms</header>
@@ -150,48 +136,32 @@
   </h6>
   <% end %>
   <% end %>
-  <a href="/chart">Daily chart</a> ||  
-  <a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal1">
-        Dirty rooms 
-  </a>
-  <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel">Dirty Rooms</h4>
-        </div>
-        <div class="container">
-          <% @rooms.each do |d| %>
-          <% if d.neatness == false %>
-            Room: <%= link_to d.room_number, room_path(d) %><br>
-          <% end %>
-          <% end %>
-        </div>
-        <div class="modal-footer">
-          Print
-        </div>
-        </div>
-      </div>
-    </div>
 </div>
+
+<!------------------------------------------------------------------
+
+      RECENT Bills
+
+------------------------------------------------------------------>
+
 <div class="col-md-4 paper-box">
   <div class="row">
-    <header style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span> Recent Bills 
+    <header style="color:red"><span class="glyphicon glyphicon-exclamation-sign"></span> Recent Bills <a href="" type="button" data-toggle="modal" data-target="#myModalexpand">Expand</a>
     <%= render "search_form_bills" %> </header>
     <table class="table table-bordered">
     <thead>
       <tr>
         <th>Name</th>
         <th>Room</th>
-        <th>Status</th>
+        <th>Stat</th>
         <th colspan="2"></th>
       </tr>
     </thead>
     <tbody>
       <% @recent_bills.each do |recent| %>
         <tr>
-          <% if recent.paid == false && recent.rollback == nil %>
+          <% if recent.rollback == true %>  
+          <% elsif recent.paid == false && recent.rollback == nil %>
             <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
             <td><%= recent.name %></td>
             <td style="color:red"><%= recent.paid? ? "\u2713" : "\u2717" %></td>
@@ -202,21 +172,74 @@
             <td><span style="color:red; font-style: italic;">Rollback</span></td>
             <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
           <% elsif recent.paid == true && recent.rollback == nil %>
-            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
-            <td><%= recent.name %></td>
-            <td><span style="color:green; font-style: italic;">Paid</span></td>
-            <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
           <% end %>
         </tr>
       </a>  
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate @recent_bills %>
+  <div id="myModalexpand" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="edit-modal modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Bills</h4>
+      </div>
+      <div class="container">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Room</th>
+              <th>Deposit</th>
+              <th>Credit</th>
+              <th>Balance</th>
+              <th>Paid</th>
+              <th>In</th>
+              <th>Out</th>
+              <th colspan="3"></th>
+            </tr>   
+          <tbody>
+            <% @recent_bills_expand.each do |b| %>
+            <% if b.rollback == nil %>
+            <tr>
+              <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+              <td><%= b.name %></td>
+              <% @deposit = b.bills.sum(:deposit) %>
+              <% @credit = b.bills.sum(:bill_price) %>
+              <% @balance = @deposit - @credit %>
+              <td><%= @deposit %> </td>
+              <td><%= @credit %> </td>
+              <td><%= @balance %></td>
+              <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+              <td><%= b.created_at.strftime("%d %b. %y") %></td>
+              <td><%= (b.created_at + b.bills.first.days.days).strftime("%d %b.") %></td>
+              <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
+            </tr>
+            <% end %>
+            <% end %>
+          </tbody>  
+          </thead>
+        </table>
+      </div>  
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+  </div>
   </div>
 </div>
-<div class="col-md-4 paper-box">
-  <div class="row">
-    <header style="color:green"> <span class="glyphicon glyphicon-calendar"></span> Recent Bookings
+
+<!------------------------------------------------------------------
+
+      RECENT Bookings
+
+  ------------------------------------------------------------------>
+
+<div class="bookings paper-box ">
+  <div class="">
+    <header style="color:green"> <span class="glyphicon glyphicon-calendar"></span> Recent Bookings <a href="" type="button" data-toggle="modal" data-target="#myModalexpand2">Expand</a>
       <%= render "search_form_book" %>
     </header>
     <table class="table table-bordered">
@@ -224,29 +247,88 @@
       <tr>
         <th>Name</th>
         <th>Room</th>
-        <th>Status</th>
+        <th>Stat</th>
+        <th>Out</th>
       </tr>
     </thead>
     <tbody>
       <% @recent_bookings.each do |recent| %>
+      <% @days = distance_of_time_in_words(Time.now, recent.created_at.at_midnight) %>
         <tr>
-          <% if recent.checked_out == false %>
-            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
+          <% if recent.rollback == true %>  
+          <% elsif recent.checked_out == false %>
+            <td><%= link_to recent.customer_first_name, customer_path(recent.customer_id) %> <%= recent.customer_last_name %></td>
             <td><%= recent.room_number %></td>
             <td><%= recent.checked_out? ? "\u2717" : "\u2713" %></td>
+            <td><%= (recent.created_at + recent.days.days).strftime("%d %b.") %></td>
             <td><%= link_to 'Check Out', recent, class: "btn btn-danger btn-xs" %></td>
           <% elsif recent.checked_out == true %>
-            <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
-            <td><%= recent.room_number %></td>
-            <td><span style="color:white; font-style: italic; font-size:12px" class="btn btn-danger btn-xs">Checked out</span></td>
           <% end %>  
         </tr>
       </a>  
       <% end %>
     </tbody>
   </table>
+  <div id="myModalexpand2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="edit-modal modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Bookings</h4>
+      </div>
+      <div class="container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Room/s </th>
+            <th>Days</th>
+            <th>Total</th>
+            <th>Disc</th>
+            <th>Stat</th>
+            <th>Lodged</th>
+            <th>Out</th>
+            <th>Checked Out</th>
+            <th colspan="3"></th>
+          </tr>   
+        <tbody>
+          <% @recent_bookings.order("created_at DESC").each do |b| %>
+          <% if b.rollback == nil %>
+          <tr>
+            <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+            <td><%= b.phone_number %></td>
+            <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+              <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %> 
+            </td>
+            <td><%= b.days %></td>
+            <td><%= b.total %></td>
+            <td><%= b.disc_amount %></td>
+            <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+            <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+            <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+            <% if b.checked_out == true %>
+            <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+            <% elsif b.checked_out == false %>
+            <td> in </td>
+            <% end %>
+            <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+          </tr>
+          <% end %>
+          <% end %>
+        </tbody>  
+        </thead>
+      </table>
+      </div>  
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+  </div>
   </div>
 </div>
+
+
 <!-- JavaScript Test -->
 <script>
 var firefoxTestDone = false

@@ -3,15 +3,19 @@ class BillContainersController < ApplicationController
 
   def index
   	@search = BillContainer.ransack(params[:q]) 
-    @bill_conts = @search.result(distinct: true).desc_order 
+    @bill_conts = @search.result(distinct: true).paginate(page: params[:page], per_page: 30).desc_order 
   end 	
+
+  def unpaid
+    @search = BillContainer.ransack(params[:q]) 
+    @bill_conts = @search.result(distinct: true).desc_order
+  end  
 
   def show
     @mybills = @bill_cont.bills.order("created_at DESC")
     @credit = @bill_cont.bills.sum(:bill_price)
     @deposit = @bill_cont.bills.sum(:deposit)
     @balance = @deposit - @credit 
-    @bill = @mybills.group(:paid)
   end   
 
   def edit 

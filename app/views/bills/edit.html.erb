@@ -1,0 +1,6 @@
+<div class="col-md-4 paper-box box-middle">
+	<%= form_for @bill do |f| %>
+	  <%= f.number_field :days %>
+	  <%= f.submit "Extend days", data: { confirm: 'Confirm customer is extending stay' } %>
+	<% end %>
+</div>

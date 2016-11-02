@@ -3,6 +3,6 @@
 	<%= form_for @book_room do |f| %>
 	  <%= f.label "Check out" %>
 	  <%= f.check_box :checked_out %>
-	  <%= f.submit "\u27A1" %>
+	  <%= f.submit "\u27A1", data: { confirm: 'Confirm customer is checking out'} %>
 	<% end %> 
 </div>

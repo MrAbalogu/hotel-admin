@@ -11,9 +11,13 @@
 	<%= f.label :room_number_cont, "room", class: "sr-only" %>
 	<%= f.search_field :room_number_cont, class: "form-control", placeholder: "Room number" %>
     </div>
+    <div class="form-group">
     <%= f.label :created_at_in, "Start" %>
-    <%= f.date_field :created_at_gteq, class: 'form-inline input-sm myform', 'datepicker' => true %>
+    <%= f.date_field :created_at_gteq, class: 'form-control input-sm myform', 'datepicker' => true %>
+    </div>
+    <div class="form-group">
     <%= f.label :created_at_in, "End" %>
-    <%= f.date_field :created_at_lteq, class: 'form-inline input-sm myform', 'datepicker' => true %>
+    <%= f.date_field :created_at_lteq, class: 'form-control input-sm myform', 'datepicker' => true %>
+	</div>
 	<%= f.submit "\u2315", class: "form-control" %>
 <% end %><br>

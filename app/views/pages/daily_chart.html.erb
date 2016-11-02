@@ -4,17 +4,20 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Phone number</th>
-      <th>Room number</th>
+      <th>Number</th>
+      <th>Room </th>
       <th>Days</th>
-      <th>Room price</th>
+      <th>Price</th>
       <th>Total</th>
-      <th>Status</th>
-      <th>Date</th>
+      <th>Disc</th>
+      <th>Stat</th>
+      <th>In</th>
+      <th>Out</th>
       <th colspan="3"></th>
     </tr>   
   <tbody>
     <% @book_rooms.order("created_at DESC").each do |b| %>
+    <% if b.rollback == nil %>
     <tr>
       <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
       <td><%= b.phone_number %></td>
@@ -22,10 +25,13 @@
       <td><%= b.days %></td>
       <td><%= b.room_price %></td>
       <td><%= b.bill_price %></td>
+      <td><%= b.disc_amount %></td>
       <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+      <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+      <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
       <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
     </tr>
+    <% end %>
     <% end %>
   </tbody>  
   </thead>

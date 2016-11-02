@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+<%= link_to 'New Reservation', new_reservation_path %>
+<h1>Reservations</h1>
+
+<table class="col-md-12 table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone number</th>
+      <th>Email</th>
+      <th>Check in</th>
+      <th>Check out</th>
+      <th>Room type</th>
+      <th>People</th>
+      <th>Reservation type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.name %></td>
+        <td><%= reservation.phone_number %></td>
+        <td><%= reservation.email %></td>
+        <td><%= reservation.check_in %></td>
+        <td><%= reservation.check_out %></td>
+        <td><%= reservation.room_type %></td>
+        <td><%= reservation.people %></td>
+        <% if reservation.hall == true && reservation.space == true && reservation.pool == true %>
+        <td>Hall, Open space & Pool</td>
+        <% elsif reservation.hall == true && reservation.space == true %>
+        <td>Hall & Open space </td>
+        <% elsif reservation.pool == true && reservation.space == true %>
+        <td>Pool & Open space </td>
+        <% elsif reservation.room == true %>
+        <td>Room</td>
+        <% elsif reservation.hall == true %>
+        <td>Hall</td>
+        <% elsif reservation.space == true %>
+        <td>Open space</td>
+        <% elsif reservation.pool == true %>
+        <td>Pool</td>
+        <% else %>
+        <td>Not Specified</td>
+        <% end %>
+        <td><%= link_to 'Show', reservation %></td>
+        <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

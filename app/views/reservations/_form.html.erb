@@ -1,0 +1,77 @@
+<%= form_for(reservation) do |f| %>
+  <% if reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+
+      <ul>
+      <% reservation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-5 paper-box">
+
+    <%= f.label "is this reservation for a room?" %>
+    <%= f.check_box :room %>
+
+    <%= f.label "is this reservation for conference hall?" %>
+    <%= f.check_box :hall %>
+
+    <%= f.label "is this reservation for the open space?" %>
+    <%= f.check_box :space %>
+
+    <%= f.label "is this reservation for swimming pool?" %>
+    <%= f.check_box :pool %>
+  
+  </div>
+
+  <div class="col-md-6 paper-box">
+
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= f.label :check_in %>
+      <%= f.date_select :check_in %>
+    </div>
+
+    <div class="field">
+      <%= f.label :check_out %>
+      <%= f.date_select :check_out %> <span class="form-span"> "This field is for room reservation" </span>
+    </div>
+
+    <div class="field">
+      <%= f.label :room_type %>
+      <%= f.text_field :room_type %> <span class="form-span"> "This field is for room reservation" </span>
+    </div>
+
+    <div class="field">
+      <%= f.label "number of people" %>
+      <%= f.number_field :people %> <span class="form-span"> "This field is for room reservation" </span>
+    </div>
+
+    <div class="field">
+      <%= f.label :deposit %>
+      <%= f.number_field :deposit %> 
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Make Reservation", data: { confirm: 'Confirm customers reservation'} %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+<%= render "search_form" %>
+<div id="bills" class="col-md-12 paper-box">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Receipt number</th>
+      <th>Room</th>
+      <th>Paid</th>
+      <th>created</th>
+      <th colspan="3"></th>
+    </tr>   
+  <tbody>
+    <% @bills.each do |b| %>
+    <% if b.bill_container.rollback == nil %>
+    <tr>
+      <td><%= b.bill_container.customer_first_name %> <%= b.bill_container.customer_last_name %></td>
+      <td><%= b.receipt_no %></td>
+      <td><%= b.bill_container.name %></td>
+      <td><%= b.bill_container.paid? ? "\u2713" : "\u2717" %></td>
+      <td><%= b.created_at.strftime("%d %b. %y") %></td>
+      <td><%= link_to 'Open', bill_container_path(b.bill_container_id), class: "btn btn-primary btn-xs" %></td>
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>  
+  </thead>
+</table>
+</div>
+<input type="button" value="Print" onclick="PrintElem('#bills')" />
+<script type="text/javascript">
+
+    function PrintElem(elem)
+    {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) 
+    {
+        var mywindow = window.open('', 'my div', 'height=1600,width=2400');
+        mywindow.document.write('<html><head><title>Bill</title>');
+        mywindow.document.write('</head><body style="margin:auto">');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+</script>

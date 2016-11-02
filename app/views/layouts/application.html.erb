@@ -6,8 +6,41 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <style type="text/css">
+  	html, body {
+  		background-color: rgba(243, 156, 18,0.1);
+  	}
+  </style>
 
-  <body>
+  <body data-no-turbolink="true">
+  	<div class="header-list">
+  		<ul>
+  			<li>
+  				<a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal1">
+			        Dirty  
+			    </a>
+  			</li>
+  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal10">
+			        Available  
+			    </a>
+			</li>
+  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal11">
+			        Occupied  
+			    </a>
+			</li>
+			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2k">
+			        Faulty  
+			    </a>
+			</li>
+  			<li><a class="btn btn-danger btn-xs" href="/chart">Daily Chart (Rooms)</a></li>
+  			<li><a class="btn btn-danger btn-xs" href="/billchart">Daily Chart (Bills)</a></li>
+  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal100">
+			        Checkout notification  
+			    </a>
+			</li>
+  			<li><a class="btn btn-danger btn-xs" href="/cityledger">Unpaid Bills</a></li>
+  		</ul>
+  	</div>
 	<div id="wrapper">
 	<div id="sidebar-wrapper">
 	  <ul class="sidebar-list">  
@@ -18,6 +51,9 @@
 	    	<%= image_tag "img-male", size: "156x150", style: "margin:0 18%" %>
 	    	<span class="glyphicon glyphicon-user"></span> 
 	    </div>
+	    <li> 
+		 <span class="glyphicon glyphicon-file"> <a href="/registration.pdf">Registration form</a>
+		</li>
 	    <li>
 		 <span class="glyphicon glyphicon-modal-window"> <%= link_to "Room type", room_categories_path %>
 		</li>
@@ -34,10 +70,215 @@
 		 <span class="glyphicon glyphicon-folder-open"> <%= link_to "All Bills", bill_containers_path %>
 		</li>
 		<li> 
-	     <span class="glyphicon glyphicon-log-out"> <%= link_to "Log out", logout_path, method: "delete" %>
+	     <span class="glyphicon glyphicon-bookmark"> <a href="/bills">Search Receipt number</a>
+	    </li>
+		<li> 
+		 <span class="glyphicon glyphicon-book"> <%= link_to "Make Reservation", reservations_path %>
+		</li>
+		<li> 
+	     <span class="glyphicon glyphicon-warning-sign"> <a href="/cityledger">Unpaid Bills</a>
+	    </li>
+	    <li> 
+	     <span class="glyphicon glyphicon-trash"> <a href="/bin">Recycle Bin</a>
 	    </li>
 	  </ul>
 	  
+	</div>
+	<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Dirty Rooms</h4>
+	    </div>
+	    <div class="container">
+	      <% @rooms = Room.all %>	
+	      <% @rooms.each do |d| %>
+	      <% if d.neatness == false %>
+	        Room: <%= link_to d.room_number, room_path(d) %><br>
+	      <% end %>
+	      <% end %>
+	    </div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div id="myModal10" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Available Rooms</h4>
+	    </div>
+	    <div class="container">
+	      <% @rooms = Room.all %>	
+	      <% @rooms.each do |d| %>
+	      <% if d.availability == true && d.neatness == true && d.faulty == true %>
+	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | Faulty <br>
+	      <% elsif d.availability == true && d.neatness == true %>
+	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %><br>
+	      <% end %>
+	      <% end %>
+	    </div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div id="myModal11" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class=" modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Occupied Rooms</h4>
+	    </div>
+	    <div class="container">
+		  <% @rooms.each do |d| %>
+		  <% @lodged = BookRoom.all %>
+		  <% if d.availability == false && d.faulty == true %>
+		    Room: <%= link_to d.room_number, room_path(d) %>: <%= d.room_category.name %> | Faulty |
+		    <% elsif d.availability == false && d.faulty == nil %>
+		    Room: <%= link_to d.room_number, room_path(d) %>: <%= d.room_category.name %> |
+		    <% @lodged.each do |customer| %>
+		      <% if customer.rollback == true %>
+			  <% elsif customer.checked_out == false %>
+			  		<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
+				        <td><%= customer.customer_first_name %></td>
+				        <td><%= customer.customer_last_name %></td> |
+				        <td>in: <%= customer.created_at.strftime("%d %b.") %></td>
+				        <td>out: <%= (customer.created_at + customer.days.days).strftime("%d %b.") %></td>
+				    <% end %>    
+			  <% end %>
+			<% end %><br>
+		  <% end %>
+		  <% end %>
+		</div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div id="myModal2k" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Faulty Rooms</h4>
+	    </div>
+	    <div class="container">
+	      <% @rooms = Room.all %>	
+	      <% @rooms.each do |d| %>
+	      <% if d.faulty == true %>
+	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | <%= d.fault_type %><br>
+	      <% end %>
+	      <% end %>
+	    </div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div id="myModal100" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Over stay</h4>
+	    </div>
+	    <div class="container">
+		  <% @rooms.each do |d| %>
+		  <% @lodged = BookRoom.all %>
+		  <% if d.availability == false %>
+		    <% @lodged.each do |customer| %>
+		    <% if customer.rollback == true %>
+		    <% elsif customer.checked_out == false %>
+			 	<% if (customer.created_at + customer.days.days).strftime("%d %b.") < Time.now.strftime("%d %b.") %>
+				 	<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
+					 	Room: <%= link_to d.room_number, room_path(d) %> |
+					    <%= (customer.created_at + customer.days.days).strftime("%d %b.") %> |
+					    <%= Time.now.strftime("%d %b.") %> <br>
+			    	<% end %>
+			 	<% else %>
+			    <% end %>
+			<% end %>    
+			<% end %>
+		  <% end %>
+		  <% end %>
+		</div>
+	    <div class="modal-header">
+	      <h4 class="modal-title" id="myModalLabel">Check out today</h4>
+	    </div>
+	    <div class="container">
+		  <% @rooms.each do |d| %>
+		  <% @lodged = BookRoom.all %>
+		  <% if d.availability == false %>
+		    <% @lodged.each do |customer| %>
+		    <% if customer.rollback == true %>
+		    <% elsif customer.checked_out == false %>
+			    <% if (customer.created_at + customer.days.days).strftime("%d %b.") == Time.now.strftime("%d %b.") %> 
+			    	<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
+					    Room: <%= link_to d.room_number, room_path(d) %> |
+					    <%= (customer.created_at + customer.days.days).strftime("%d %b.") %> |
+					    <%= Time.now.strftime("%d %b.") %> <br>
+					<% end %>    
+			 	<% else %>
+			    <% end %>
+			<% end %>    
+			<% end %>
+		  <% end %>
+		  <% end %>
+		</div>
+	    <div class="modal-header">
+	      <h4 class="modal-title" id="myModalLabel">Checking out tomorrow</h4>
+	    </div>
+	    <div class="container">
+		  <% @rooms.each do |d| %>
+		  <% @lodged = BookRoom.all %>
+		  <% if d.availability == false %>
+		    <% @lodged.each do |customer| %>
+		    <% if customer.rollback == true %>
+		    <% elsif customer.checked_out == false %>
+			    <% if (customer.created_at + customer.days.days).strftime("%d %b.") == (Time.now + 1.days).strftime("%d %b.") %> 
+			    	<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
+					    Room: <%= link_to d.room_number, room_path(d) %> |
+					    <%= (customer.created_at + customer.days.days).strftime("%d %b.") %> |
+					    <%= Time.now.strftime("%d %b.") %> <br>
+					<% end %>    
+			 	<% else %>
+			    <% end %>
+			<% end %>    
+			<% end %>
+		  <% end %>
+		  <% end %>
+		</div>
+	    <div class="modal-header">
+	      <h4 class="modal-title" id="myModalLabel">Checking out next tomorrow</h4>
+	    </div>
+	    <div class="container">
+		  <% @rooms.each do |d| %>
+		  <% @lodged = BookRoom.all %>
+		  <% if d.availability == false %>
+		    <% @lodged.each do |customer| %>
+		    <% if customer.rollback == true %>
+		    <% elsif customer.checked_out == false %>
+			    <% if (customer.created_at + customer.days.days).strftime("%d %b.") == (Time.now + 2.days).strftime("%d %b.") %> 
+			    	<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
+					    Room: <%= link_to d.room_number, room_path(d) %> |
+					    <%= (customer.created_at + customer.days.days).strftime("%d %b.") %> |
+					    <%= Time.now.strftime("%d %b.") %> <br>
+				    <% end %>
+			 	<% else %>
+			    <% end %>
+			<% end %>    
+			<% end %>
+		  <% end %>
+		  <% end %>
+		</div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
 	</div>
 
 	<style type="text/css">

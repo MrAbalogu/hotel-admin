@@ -64,6 +64,28 @@
       </div>
     </div>
     </div>
+    <button type="button" class="btn btn-danger glyphicon glyphicon-wrench" data-toggle="modal" data-target="#myModal5k" style="margin-left:50%; margin-top:10px"> </button>
+    <div id="myModal5k" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">What is faulty in this room?</h4>
+        </div>
+        <div class="container">    
+        <%= form_for(@room) do |f| %>
+        <%= f.label :faulty, "faulty"%>
+        <%= f.check_box :faulty %>
+        <%= f.label "Whats the fault"%>
+        <%= f.text_field :fault_type %>     
+        </div>
+        <div class="modal-footer">
+        <%= f.submit "Submit", class: "btn btn-primary btn-xs" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    </div>
 </div>
 <div class="col-md-12 paper-box">
 <table class="table table-hover">
@@ -72,23 +94,31 @@
       <th>first Name</th>
       <th>last name</th>
       <th>phone</th>
-      <th>lodged in</th>
+      <th>in</th>
+      <th>out</th>
       <th>days</th>
+      <th>stayed</th>
       <th>Bill</th>
       <th colspan="3"></th>
     </tr>   
   <tbody>
+    <% @lodged = BookRoom.all.order("created_at DESC")%>
     <% @lodged.each do |customer| %>
-    <% if customer.checked_out == false %>
-    <% @days = distance_of_time_in_words(Time.now, customer.created_at.at_midnight) %>
-      <tr>
-        <td><%= customer.customer_first_name %></td>
-        <td><%= customer.customer_last_name %></td>
-        <td><%= customer.phone_number %></td>
-        <td><%= customer.created_at.strftime("%d %b. %Y. %H:%M") %></td>
-        <td><%= @days %></td>
-        <td><%= @room.room_category.price * @days.to_i %></td>
-      </tr>
+    <% if customer.rollback == true %>
+    <% elsif customer.checked_out == false %>
+        <% if customer.room == @room.id || customer.room2 == @room.id || customer.room3 == @room.id || customer.room4 == @room.id || customer.room5 == @room.id || customer.room6 == @room.id || customer.room7 == @room.id || customer.room8 == @room.id || customer.room9 == @room.id || customer.room10 == @room.id %>
+          <% @days = distance_of_time_in_words(Time.now, customer.created_at.at_midnight) %>
+            <tr>
+              <td><%= link_to customer.customer_first_name, customer_path(customer.customer_id) %></td>
+              <td><%= customer.customer_last_name %></td>
+              <td><%= customer.phone_number %></td>
+              <td><%= customer.created_at.strftime("%d %b. %Y. %H:%M") %></td>
+              <td><%= (customer.created_at + customer.days.days).strftime("%d %b.") %></td>
+              <td><%= customer.days %></td>
+              <td><%= @days %></td>
+              <td><%= @room.room_category.price * @days.to_i %></td>
+            </tr> 
+        <% end %>    
     <% end %>  
     <% end %>
   </tbody>  

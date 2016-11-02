@@ -12,6 +12,20 @@
   <div class="neat-border border-green">
   </div>
   <% end %>
+  <% @lodged = BookRoom.all %>
+  <% @lodged.each do |customer| %>
+    <% if customer.rollback == true %>
+    <% elsif customer.checked_out == false %>
+      <% if customer.room == room.id || customer.room2 == room.id || customer.room3 == room.id || customer.room4 == room.id || customer.room5 == room.id || customer.room6 == room.id || customer.room7 == room.id || customer.room8 == room.id || customer.room9 == room.id || customer.room10 == room.id %>
+      <% @days = distance_of_time_in_words(Time.now, customer.created_at.at_midnight) %>
+      <p>in: <%= customer.created_at.strftime("%d %b") %> </p> 
+      <p>out: <%= (customer.created_at + customer.days.days).strftime("%d %b") %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if room.faulty == true %>
+  <h4 style="color:red">Faulty</h4>
+  <% end %>
 </div>
 <% elsif room.availability == true %>
 <div class="room-box box-green">
@@ -19,13 +33,18 @@
   <% if room.neatness == false %>
   <div class="neat-border border-red">
   </div>
+  <% if room.faulty == true %>
+  <h4 style="color:red">Faulty</h4>
+  <% end %>
   <% elsif room.neatness == true %>
   <div class="neat-border border-green">
   </div>
+  <% if room.faulty == true %>
+  <h4 style="color:red">Faulty</h4>
+  <% end %>
   <% end %>
 </div>
 <% end %>
 <% end %>
 <% end %>
-
 </div>
