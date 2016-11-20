@@ -1,7 +1,7 @@
 <div class="col-md-12 paper-box" style="margin-top:20px">
   <div class="row">
     <header style="text-align:center"><%= render "search_form_cust" %>
-      <button type="button" class="btn btn-info glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal" style="margin-top:5px"> </button>
+      <button type="button" class="btn btn-info glyphicon glyphicon-plus" id="hello" style="margin-top:5px"> </button>
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -11,7 +11,7 @@
           <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
         </div>
         <div class="container">
-        <%= form_for(@customer) do |f| %>
+        <%= form_for @customer, remote: true do |f| %>
       <div class="form-group row" style="margin-top:10px">
         <%= f.label :first_name, class: "col-xs-2 col-form-label" %>
         <div class="col-xs-3">
@@ -41,7 +41,7 @@
       </div>          
       </div>
         <div class="modal-footer">
-          <%= f.submit "Submit", class: "btn btn-primary" %>
+          <%= f.submit "dubmit", class: "btn btn-primary", id: "1button" %>
         </div>
         <% end %>
       </div>
@@ -50,6 +50,16 @@
     </header>
   </div>
 </div>
+<script type="text/javascript">
+  $('#hello').click(function(){
+    $('#myModal').modal('show');
+    $('#1button').click(function(){
+      ('#new_customer').submit();
+      console.log('clicked')
+    });
+    // $('#myModal').modal('hide');
+  });
+</script>
 
 <!------------------------------------------------------------------
 

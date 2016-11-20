@@ -16,6 +16,7 @@ gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 gem "paperclip"
 gem 'will_paginate', '~> 3.1.0'
+gem 'heroku', '~> 3.43', '>= 3.43.12'
 
 group :development, :test do
   gem 'byebug', platform: :mri
