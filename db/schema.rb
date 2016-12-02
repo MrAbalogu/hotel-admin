@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024122810) do
+ActiveRecord::Schema.define(version: 20161126124118) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "bill_containers", force: :cascade do |t|
     t.string   "name"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.integer  "room_id"
     t.boolean  "rollback"
     t.boolean  "checked_out"
-    t.index ["customer_id"], name: "index_bill_containers_on_customer_id"
+    t.index ["customer_id"], name: "index_bill_containers_on_customer_id", using: :btree
   end
 
   create_table "bills", force: :cascade do |t|
@@ -32,7 +35,6 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.boolean  "paid"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "room_id"
     t.integer  "bill_container_id"
     t.integer  "deposit"
     t.integer  "days"
@@ -40,7 +42,7 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.string   "receipt_no"
     t.string   "room_number"
     t.integer  "room"
-    t.index ["bill_container_id"], name: "index_bills_on_bill_container_id"
+    t.index ["bill_container_id"], name: "index_bills_on_bill_container_id", using: :btree
   end
 
   create_table "book_rooms", force: :cascade do |t|
@@ -177,7 +179,15 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.integer  "bill_price29"
     t.integer  "bill_price30"
     t.integer  "total"
-    t.index ["customer_id"], name: "index_book_rooms_on_customer_id"
+    t.boolean  "midnight"
+    t.index ["customer_id"], name: "index_book_rooms_on_customer_id", using: :btree
+  end
+
+  create_table "bugreports", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -191,7 +201,8 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.index ["first_name", "last_name"], name: "index_customers_on_first_name_and_last_name", unique: true
+    t.string   "email"
+    t.index ["first_name", "last_name"], name: "index_customers_on_first_name_and_last_name", unique: true, using: :btree
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -229,7 +240,7 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.string   "room_type"
     t.boolean  "faulty"
     t.string   "fault_type"
-    t.index ["room_category_id"], name: "index_rooms_on_room_category_id"
+    t.index ["room_category_id"], name: "index_rooms_on_room_category_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -242,4 +253,6 @@ ActiveRecord::Schema.define(version: 20161024122810) do
     t.string   "password"
   end
 
+  add_foreign_key "bill_containers", "customers"
+  add_foreign_key "book_rooms", "customers"
 end

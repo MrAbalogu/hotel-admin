@@ -269,7 +269,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -939,7 +938,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -1587,7 +1585,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -2213,7 +2210,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -2816,7 +2812,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -3398,7 +3393,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -3957,7 +3951,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -4495,7 +4488,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -5012,7 +5004,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -5507,7 +5498,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -5980,7 +5970,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -6432,7 +6421,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -6862,7 +6850,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -7270,7 +7257,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -7657,7 +7643,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -8022,7 +8007,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -8365,7 +8349,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -8687,7 +8670,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -8987,7 +8969,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
         bill12.update_columns :days => self.days, 
                             :room_number => room12.room_number,
@@ -9265,7 +9246,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room11.room_number,
                             :room => room11.id,
                             :room_price => self.room_price11,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price11.to_i
       elsif self.discount == true 
         self.update_columns :customer_first_name => customer.first_name, 
@@ -9473,7 +9453,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -9589,7 +9568,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -9711,7 +9689,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -9816,7 +9793,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -9926,7 +9902,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10021,7 +9996,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10120,7 +10094,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10205,7 +10178,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10292,7 +10264,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10366,7 +10337,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10442,7 +10412,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10506,7 +10475,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10571,7 +10539,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10625,7 +10592,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10678,7 +10644,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10721,7 +10686,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10763,7 +10727,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10796,7 +10759,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
         bill2.update_columns :days => self.days, 
                             :room_number => room2.room_number,
@@ -10827,7 +10789,6 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i                                                                                                                                                            
       elsif self.discount == true 
         self.update_columns :customer_first_name => customer.first_name, 
@@ -10850,13 +10811,15 @@ class BookRoom < ApplicationRecord
                             :room_number => room.room_number,
                             :room => room.id,
                             :room_price => self.room_price,
-                            :room_price => self.room_price, 
                             :bill_price => self.days.to_i * self.room_price.to_i
       end 
     end 
   end 
 
   def add_dynamic_change
+    puts 'holla'
+    # CustomerMailer.checkout(self.customer).deliver
+
     if self.room.present? && self.room2.present? && self.room3.present? && self.room4.present? && self.room5.present?  && self.room6.present? && self.room7.present?  && self.room8.present? && self.room9.present? && self.room10.present? && self.room11.present? && self.room12.present? && self.room13.present? && self.room14.present? && self.room15.present?  && self.room16.present? && self.room17.present?  && self.room18.present? && self.room19.present? && self.room20.present? && self.room21.present? && self.room22.present? && self.room23.present? && self.room24.present? && self.room25.present?  && self.room26.present? && self.room27.present?  && self.room28.present? && self.room29.present? && self.room30.present?
       room = Room.find self.room
       room2 = Room.find self.room2

@@ -5,6 +5,8 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   </head>
   <style type="text/css">
   	html, body {
@@ -13,172 +15,76 @@
   </style>
 
   <body data-no-turbolink="true">
-  	<div class="header-list">
-  		<ul>
-  			<li>
-  				<a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal1">
-			        Dirty  
-			    </a>
-  			</li>
-  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal10">
-			        Available  
-			    </a>
-			</li>
-  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal11">
-			        Occupied  
-			    </a>
-			</li>
-			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2k">
-			        Faulty  
-			    </a>
-			</li>
-  			<li><a class="btn btn-danger btn-xs" href="/chart">Daily Chart (Rooms)</a></li>
-  			<li><a class="btn btn-danger btn-xs" href="/billchart">Daily Chart (Bills)</a></li>
-  			<li><a type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal100">
-			        Checkout notification  
-			    </a>
-			</li>
-  			<li><a class="btn btn-danger btn-xs" href="/cityledger">Unpaid Bills</a></li>
-  		</ul>
-  	</div>
-	<div id="wrapper">
-	<div id="sidebar-wrapper">
-	  <ul class="sidebar-list">  
-	    <a href="/home">
-	          <span class="glyphicon glyphicon-home" style="font-size:40px; margin:10px 40%; color:gray"></span>
-	    </a>
-	    <div class="user_profile_container" style="text-align:center">
-	    	<%= image_tag "img-male", size: "156x150", style: "margin:0 18%" %>
-	    	<span class="glyphicon glyphicon-user"></span> 
+  	<% @lodged = BookRoom.all %> 
+  	<% @rooms = Room.all %>
+  	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a href="/page"><span class="glyphicon glyphicon-font"></a> <a class="navbar-brand" href="/">Benny</a>
 	    </div>
-	    <li> 
-		 <span class="glyphicon glyphicon-file"> <a href="/registration.pdf">Registration form</a>
-		</li>
-	    <li>
-		 <span class="glyphicon glyphicon-modal-window"> <%= link_to "Room type", room_categories_path %>
-		</li>
-		<li>
-		 <span class="glyphicon glyphicon-home"> <%= link_to "Rooms", rooms_path %>
-		</li>
-		<li> 
-		 <span class="glyphicon glyphicon-user"> <%= link_to "Customers", customers_path %>
-		</li>
-		<li> 
-		 <span class="glyphicon glyphicon-duplicate"> <%= link_to "All Bookings", book_rooms_path %>
-		</li>
-		<li> 
-		 <span class="glyphicon glyphicon-folder-open"> <%= link_to "All Bills", bill_containers_path %>
-		</li>
-		<li> 
-	     <span class="glyphicon glyphicon-bookmark"> <a href="/bills">Search Receipt number</a>
-	    </li>
-		<li> 
-		 <span class="glyphicon glyphicon-book"> <%= link_to "Make Reservation", reservations_path %>
-		</li>
-		<li> 
-	     <span class="glyphicon glyphicon-warning-sign"> <a href="/cityledger">Unpaid Bills</a>
-	    </li>
-	    <li> 
-	     <span class="glyphicon glyphicon-trash"> <a href="/bin">Recycle Bin</a>
-	    </li>
-	  </ul>
-	  
-	</div>
-	<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Dirty Rooms</h4>
-	    </div>
-	    <div class="container">
-	      <% @rooms = Room.all %>	
-	      <% @rooms.each do |d| %>
-	      <% if d.neatness == false %>
-	        Room: <%= link_to d.room_number, room_path(d) %><br>
-	      <% end %>
-	      <% end %>
-	    </div>
-	    <div class="modal-footer">
-	    </div>
-	  </div>
-	</div>
-	</div>
-	<div id="myModal10" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Available Rooms</h4>
-	    </div>
-	    <div class="container">
-	      <% @rooms = Room.all %>	
-	      <% @rooms.each do |d| %>
-	      <% if d.availability == true && d.neatness == true && d.faulty == true %>
-	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | Faulty <br>
-	      <% elsif d.availability == true && d.neatness == true %>
-	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %><br>
-	      <% end %>
-	      <% end %>
-	    </div>
-	    <div class="modal-footer">
-	    </div>
-	  </div>
-	</div>
-	</div>
-	<div id="myModal11" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class=" modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Occupied Rooms</h4>
-	    </div>
-	    <div class="container">
-		  <% @rooms.each do |d| %>
-		  <% @lodged = BookRoom.all %>
-		  <% if d.availability == false && d.faulty == true %>
-		    Room: <%= link_to d.room_number, room_path(d) %>: <%= d.room_category.name %> | Faulty |
-		    <% elsif d.availability == false && d.faulty == nil %>
-		    Room: <%= link_to d.room_number, room_path(d) %>: <%= d.room_category.name %> |
-		    <% @lodged.each do |customer| %>
-		      <% if customer.rollback == true %>
-			  <% elsif customer.checked_out == false %>
-			  		<% if customer.room == d.id || customer.room2 == d.id || customer.room3 == d.id || customer.room4 == d.id || customer.room5 == d.id || customer.room6 == d.id || customer.room7 == d.id || customer.room8 == d.id || customer.room9 == d.id || customer.room10 == d.id %>
-				        <td><%= customer.customer_first_name %></td>
-				        <td><%= customer.customer_last_name %></td> |
-				        <td>in: <%= customer.created_at.strftime("%d %b.") %></td>
-				        <td>out: <%= (customer.created_at + customer.days.days).strftime("%d %b.") %></td>
-				    <% end %>    
-			  <% end %>
-			<% end %><br>
-		  <% end %>
-		  <% end %>
-		</div>
-	    <div class="modal-footer">
-	    </div>
-	  </div>
-	</div>
-	</div>
-	<div id="myModal2k" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Faulty Rooms</h4>
-	    </div>
-	    <div class="container">
-	      <% @rooms = Room.all %>	
-	      <% @rooms.each do |d| %>
-	      <% if d.faulty == true %>
-	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | <%= d.fault_type %><br>
-	      <% end %>
-	      <% end %>
-	    </div>
-	    <div class="modal-footer">
-	    </div>
-	  </div>
-	</div>
-	</div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	      	<li><a type="button" data-toggle="modal" data-target="#myModal100">
+              Checkout notification  
+          	</a></li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dirty <span class="caret"></span></a>		      
+	          <ul class="dropdown-menu">
+	          	<% @rooms.each do |d| %>
+		          	<% if d.neatness == false %>
+			            <li><%= link_to 'Room:'+d.room_number, room_path(d) %></li>
+			        <% end %>
+		        <% end %>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Available <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <% @rooms.each do |d| %>
+			      <% if d.availability == true && d.neatness == true && d.faulty == true %>
+			         <li><%= link_to 'Room:'+d.room_number+' Faulty', room_path(d) %></li>
+			      <% elsif d.availability == true && d.neatness == true %>
+			         <li><%= link_to 'Room:'+d.room_number, room_path(d) %></li>
+			      <% end %>
+			    <% end %>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Occupied <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <% @rooms.each do |d| %>
+				  <% if d.availability == false && d.faulty == true %>
+				    <li><%= link_to 'Room:'+d.room_number+' Faulty', room_path(d) %> </li>
+				  <% elsif d.availability == false && d.faulty == nil %>
+				    <li><%= link_to 'Room:'+d.room_number, room_path(d) %></li>
+				  <% end %>
+				<% end %>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Faulty <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <% @rooms.each do |d| %>
+			      <% if d.faulty == true %>
+			        <li><%= link_to 'Room:'+d.room_number, room_path(d) %></li>
+			      <% end %>
+			    <% end %>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
 	<div id="myModal100" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog">
 	  <div class="modal-content">
@@ -280,45 +186,96 @@
 	  </div>
 	</div>
 	</div>
-
-	<style type="text/css">
-	a:hover {
-		text-decoration: none;
-	}
-	td {
-		font-weight: lighter;
-		font-size: 12px;
-		padding-bottom: 1px;
-	}
-	.glyphicon {
-
-	}
-	</style>
+  	
+	
+	
 
 	<!-- /#sidebar-wrapper -->
-	<a href="#menu-toggle" id="menu-toggle">&#8592;</a>
-	  <div class="container-fluid">
+	  <div class="" style="padding: 0 5px">
 	      <%= yield %>
 	  </div>
 
 
-	</div>
+
 	<!-- Menu Toggle Script -->
 	<script>
 	$("#menu-toggle").click(function(e) {
 	    e.preventDefault();
 	    $("#wrapper").toggleClass("toggled");
 	});
-	</script>
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		/* DROPDOWN CLASS DEFINITION
+	  * ========================= */
 
-	  ga('create', 'UA-65762947-7', 'auto');
-	  ga('send', 'pageview');
+	  var toggle = '[data-toggle="dropdown"]'
+	    , Dropdown = function (element) {
+	        var $el = $(element).on('click.dropdown.data-api', this.toggle)
+	        $('html').on('click.dropdown.data-api', function () {
+	          $el.parent().removeClass('open')
+	        })
+	      }
 
+	  Dropdown.prototype = {
+
+	    constructor: Dropdown
+
+	  , toggle: function (e) {
+	      var $this = $(this)
+	        , $parent
+	        , selector
+	        , isActive
+
+	      if ($this.is('.disabled, :disabled')) return
+
+	      selector = $this.attr('data-target')
+
+	      if (!selector) {
+	        selector = $this.attr('href')
+	        selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
+	      }
+
+	      $parent = $(selector)
+	      $parent.length || ($parent = $this.parent())
+
+	      isActive = $parent.hasClass('open')
+
+	      clearMenus()
+
+	      if (!isActive) $parent.toggleClass('open')
+
+	      return false
+	    }
+
+	  }
+
+	  function clearMenus() {
+	    $(toggle).parent().removeClass('open')
+	  }
+
+
+	  /* DROPDOWN PLUGIN DEFINITION
+	   * ========================== */
+
+	  $.fn.dropdown = function (option) {
+	    return this.each(function () {
+	      var $this = $(this)
+	        , data = $this.data('dropdown')
+	      if (!data) $this.data('dropdown', (data = new Dropdown(this)))
+	      if (typeof option == 'string') data[option].call($this)
+	    })
+	  }
+
+	  $.fn.dropdown.Constructor = Dropdown
+
+
+	  /* APPLY TO STANDARD DROPDOWN ELEMENTS
+	   * =================================== */
+
+	  $(function () {
+	    $('html').on('click.dropdown.data-api', clearMenus)
+	    $('body')
+	      .on('click.dropdown', '.dropdown form', function (e) { e.stopPropagation() })
+	      .on('click.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+	  })
 	</script>
   </body>
 </html>

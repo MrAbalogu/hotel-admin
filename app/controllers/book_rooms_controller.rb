@@ -30,8 +30,8 @@ class BookRoomsController < ApplicationController
   def update 
     @customer = Customer.find @book_room.customer_id
     @book_room.update(book_rooms_params)
-    bill_container = BillContainer.where(room_id: @book_room.room).first
-    redirect_to bill_container_path(bill_container.id) 
+    bill_container = BillContainer.where(customer_id: @customer).last
+    redirect_to bill_container_path(bill_container) 
     flash[:notice] = "Customer has checked out. Ensure you check customer bill before checking him out"
   end   
 
@@ -45,7 +45,7 @@ class BookRoomsController < ApplicationController
   	params.require(:book_room).permit(:room, :customer_first_name, :customer_last_name, :phone_number, 
                                       :checked_out, :days, :deposit, :room_price, :rollback, :discount, 
                                       :disc_amount, :room2, :room3, :room4, :room5, :room6, :room7, 
-                                      :room8, :room9, :room10 )
+                                      :room8, :room9, :room10, :midnight)
   end 
 
 end

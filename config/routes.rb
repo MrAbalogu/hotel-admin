@@ -1,19 +1,21 @@
 Rails.application.routes.draw do
 
-  get 'login'         => 'sessions#new'
-  get '/home'         => "pages#home"
-  get '/chart'        => "pages#daily_chart"
-  get '/cityledger'   => "bill_containers#unpaid"
-  get '/billchart'    => "pages#bill_chart"
-  get 'bin'           => "pages#bin"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "users#new", :as => "sign_up"
 
-  post   'login'   => 'sessions#create'
+  get  '/home'         => "customers#index"
+  get  '/chart'        => "pages#daily_chart"
+  get  '/cityledger'   => "bill_containers#unpaid"
+  get  '/billchart'    => "pages#bill_chart"
+  get  'bin'           => "pages#bin"
+  get  'page' => "pages#home"
 
-  delete 'logout'  => 'sessions#destroy'
+  root   'customers#index'
 
-  root   'pages#home'
   resources :users
   resources :room_categories
+  resources :sessions
   
   resources :reservations
   resources :customers

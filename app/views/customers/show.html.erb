@@ -40,199 +40,197 @@
 			</p>
 		</div>
 	</div>
+	<div id="myModalz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="container">
+	      <button id="button2"  class="btn btn-default btn-xs">2nd room</button><br>
+	      <button id="button3"  class="btn btn-default btn-xs">3rd room</button><br>
+	      <button id="button4"  class="btn btn-default btn-xs">4th room</button><br>
+	      <button id="button5"  class="btn btn-default btn-xs">5th room</button><br>
+	      <button id="button6"  class="btn btn-default btn-xs">6th room</button><br>
+	      <button id="button7"  class="btn btn-default btn-xs">7th room</button><br>
+	      <button id="button8"  class="btn btn-default btn-xs">8th room</button><br>
+	      <button id="button9"  class="btn btn-default btn-xs">9th room</button><br>
+	      <button id="button10"  class="btn btn-default btn-xs">10th room</button><br>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<div id="hola" class="book-room-dialog">
+		<%= form_for [@customer, @customer.book_rooms.build] do |f| %>
+			<% @room = Room.all %>
+			<div id="container">
+				<div class="form-group row" style="margin-top:20px">
+				  <%= f.label "Room: ", class: "col-xs-2 col-form-label"%>
+				  <div class="col-xs-1">
+				    <%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room") %><br>
+				  </div>
+			    <a type="button" style="margin-left:80px" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalz">
+					Book more rooms 
+				</a>
+				<a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal20">
+					Available rooms 
+				</a>
+				<script>
+					$("#button2").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room2: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room2, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button3").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room3: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room3, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button4").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room4: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room4, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button5").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room5: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room5, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button6").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room6: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room6, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button7").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room7: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room7, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button8").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room8: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room8, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button9").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room9: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room9, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+					$("#button10").click(function () {
+					  $(this).prop('disabled', true);
+					  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room10: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room10, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+					  return false;
+					});
+				</script>
+			    </div>
+		    </div>
+		    <div class="form-group row">
+			  <%= f.label :days, class: "col-xs-2 col-form-label" %>
+			  <div class="col-xs-3">
+			    <%= f.number_field :days, class: "form-control" %><br>
+			  </div>  
+		    </div>
+		    <div class="form-group row">
+			  <%= f.label :discount, class: "col-xs-2 col-form-label" %>
+			  <div class="col-xs-3">
+			    <%= f.check_box :discount, class: "form-control" %><br>
+			  </div>  
+		    </div>
+		    <div class="form-group row">
+			  <%= f.label "Discount amount", class: "col-xs-2 col-form-label" %>
+			  <div class="col-xs-3">
+			    <%= f.number_field :disc_amount, class: "form-control" %><br>
+			  </div>  
+		    </div>	
+		    <div class="form-group row">
+			  <%= f.label "midnight?", class: "col-xs-2 col-form-label" %>
+			  <div class="col-xs-3">
+			    <%= f.check_box :midnight, class: "form-control" %><br>
+			  </div>  
+		    </div>	
+		    <%= f.submit "Submit", class: "btn btn-primary" %>
+		<% end %>	    
+	</div>
+	<div id="myModal20" class="modal fade">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Available Rooms</h4>
+	    </div>
+	    <div class="container">
+	      <% @rooms = Room.all %>	
+	      <% @rooms.each do |d| %>
+	      <% if d.availability == true && d.neatness == true && d.faulty == true %>
+	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | Faulty <br>
+	      <% elsif d.availability == true && d.neatness == true %>
+	        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %><br>
+	      <% end %>
+	      <% end %>
+	    </div>
+	    <div class="modal-footer">
+	    </div>
+	  </div>
+	</div>
+	</div>
 	<div class="col-md-6">
 		<div class="col-md-12" style="margin-bottom:10px">
-			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			<button id="button-toggle" type="button" class="btn btn-primary btn-lg">
 		      Book Room
 		    </button>
-		    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		          <h4 class="modal-title" id="myModalLabel">Book Room</h4>
-		        </div>
-		        <div class="container">
-					<div id="myModal20" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog">
-					  <div class="modal-content">
-					    <div class="modal-header">
-					      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					      <h4 class="modal-title" id="myModalLabel">Available Rooms</h4>
-					    </div>
-					    <div class="container">
-					      <% @rooms = Room.all %>	
-					      <% @rooms.each do |d| %>
-					      <% if d.availability == true && d.neatness == true && d.faulty == true %>
-					        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %> | Faulty <br>
-					      <% elsif d.availability == true && d.neatness == true %>
-					        Room: <%= link_to d.room_number, room_path(d) %> : Type: <%= d.room_category.name %><br>
-					      <% end %>
-					      <% end %>
-					    </div>
-					    <div class="modal-footer">
-					    </div>
-					  </div>
-					</div>
-					</div>
-					<div id="myModalz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog">
-					  <div class="modal-content">
-					    <div class="container">
-					      <button id="button2"  class="btn btn-default btn-xs">2nd room</button><br>
-					      <button id="button3"  class="btn btn-default btn-xs">3rd room</button><br>
-					      <button id="button4"  class="btn btn-default btn-xs">4th room</button><br>
-					      <button id="button5"  class="btn btn-default btn-xs">5th room</button><br>
-					      <button id="button6"  class="btn btn-default btn-xs">6th room</button><br>
-					      <button id="button7"  class="btn btn-default btn-xs">7th room</button><br>
-					      <button id="button8"  class="btn btn-default btn-xs">8th room</button><br>
-					      <button id="button9"  class="btn btn-default btn-xs">9th room</button><br>
-					      <button id="button10"  class="btn btn-default btn-xs">10th room</button><br>
-					    </div>
-					  </div>
-					</div>
-					</div>
-			        <%= form_for [@customer, @customer.book_rooms.build] do |f| %>
-					<% @room = Room.all %>
-					<div id="container">
-						<div class="form-group row" style="margin-top:20px">
-						  <%= f.label "Room: ", class: "col-xs-2 col-form-label"%>
-						  <div class="col-xs-1">
-						    <%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room") %><br>
-						  </div>
-					    <a type="button" style="margin-left:50px" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalz">
-							Book more rooms 
-						</a>
-						<a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal20">
-							Available rooms 
-						</a>
-						<script>
-							$("#button2").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room2: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room2, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button3").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room3: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room3, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button4").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room4: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room4, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button5").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room5: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room5, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button6").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room6: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room6, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button7").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room7: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room7, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button8").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room8: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room8, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button9").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room9: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room9, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-							$("#button10").click(function () {
-							  $(this).prop('disabled', true);
-							  $("#container").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room10: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room10, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
-							  return false;
-							});
-						</script>
-					    </div>
-				    </div>
-				    <div class="form-group row">
-					  <%= f.label :days, class: "col-xs-2 col-form-label" %>
-					  <div class="col-xs-3">
-					    <%= f.number_field :days, class: "form-control" %><br>
-					  </div>  
-				    </div>
-				    <div class="form-group row">
-					  <%= f.label :discount, class: "col-xs-2 col-form-label" %>
-					  <div class="col-xs-3">
-					    <%= f.check_box :discount, class: "form-control" %><br>
-					  </div>  
-				    </div>
-				    <div class="form-group row">
-					  <%= f.label "Discount amount", class: "col-xs-2 col-form-label" %>
-					  <div class="col-xs-3">
-					    <%= f.number_field :disc_amount, class: "form-control" %><br>
-					  </div>  
-				    </div>		    
-			    </div>
-		        <div class="modal-footer">
-		        	<%= f.submit "Submit", class: "btn btn-primary"  %>
-		        </div>
-		        <% end %>
-		      </div>
-		    </div>
-		    </div>
-	    </div>   
-	
-	<div class="col-md-12 paper-box">
-	<a href="" type="button" data-toggle="modal" data-target="#myModalexpand">Expand</a>
-	<table class="table table-hover">
-	  <thead>
-	    <tr>
-	      <th>Room</th>
-	      <th>Status</th>
-	      <th>Days</th>
-	      <th>In</th>
-	      <th>Out</th>
-	      <th>Chkd Out</th>
-	    </tr>   
-	  <tbody>
-	    <% @booked.each do |b| %>
-	    <tr>
-	      <% if b.checked_out == true %>
-	      	<td><%= link_to b.room_number, room_path(b.room) %></td>
-	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-	        <td><%= b.days %></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td><%= b.updated_at.strftime("%d %b. %y") %></td>
-	        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
-	      <% elsif b.rollback == true %>
-	        <td><%= link_to b.room_number, room_path(b.room) %></td>
-	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td></td>
-	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-	      <% else %>  
-	      	<td><%= link_to b.room_number, room_path(b.room) %></td>
-	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-	        <td><%= b.days %></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td></td>
-	        <td><%= link_to 'Check out', book_room_path(b), class: "btn btn-danger btn-xs" %></td>
-	        <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
-	      <% end %>
-	    </tr>
-	    <% end %>
-	  </tbody>  
-	  </thead>
-	</table>
-	</div>
+			<div class="col-md-12 paper-box">
+			<a href="" type="button" data-toggle="modal" data-target="#myModalexpand">Expand</a>
+			<table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th>Room</th>
+			      <th>Status</th>
+			      <th>Days</th>
+			      <th>In</th>
+			      <th>Out</th>
+			      <th>Chkd Out</th>
+			    </tr>   
+			  <tbody>
+			    <% @booked.each do |b| %>
+			    <tr>
+			      <% if b.checked_out == true %>
+			      	<td><%= link_to b.room_number, room_path(b.room) %></td>
+			        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+			        <td><%= b.days %></td>
+			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+			        <td><%= b.updated_at.strftime("%d %b. %y") %></td>
+			        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
+			      <% elsif b.rollback == true %>
+			        <td><%= link_to b.room_number, room_path(b.room) %></td>
+			        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+			        <td></td>
+			        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+			      <% else %>  
+			      	<td><%= link_to b.room_number, room_path(b.room) %></td>
+			        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+			        <td><%= b.days %></td>
+			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+			        <td></td>
+			        <td>
+	                    <%= form_for b do |f| %>
+	                      <%= f.hidden_field :checked_out, value: true %>
+	                      <%= f.submit 'Checkout', class: 'btn btn-danger btn-xs' %>
+	                    <% end %>
+	                </td>
+			        <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
+			      <% end %>
+			    </tr>
+			    <% end %>
+			  </tbody>  
+			  </thead>
+			</table>
+			</div>
+		</div>	
 	</div>	
+
 	<div id="myModalexpand" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="edit-modal modal-dialog">
+	<div class="edit-modal">
 	  <div class="modal-content">
 	    <div class="modal-header">
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -314,3 +312,10 @@
 		</table>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		$("#hola").hide();
+		$("#button-toggle").click(function(){
+			$("#hola").toggle();
+		});
+	</script>

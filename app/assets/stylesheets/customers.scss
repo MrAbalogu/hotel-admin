@@ -1,0 +1,28 @@
+.rollback {
+	position: absolute;
+	top:30%;
+	left:10%;
+	color: red;
+	z-index: 1;
+	font-size: 100px;
+}
+
+.edit-modal {
+	margin: 0 auto;
+	width:90%;
+	height: 90%;
+}
+
+.book-room-dialog {
+	position: absolute;
+	margin-left: 40%;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	width: 50%;
+	background-color: #DADFE1;
+	border: 1px solid black;
+	border-radius: 5px;
+	z-index: 1;
+	padding: 20px;
+}

@@ -1,5 +1,5 @@
-<%= render "search_form" %>
-<div id="allbills" class="col-md-12 paper-box">
+<%= render "bill_search" %>
+<div class="col-md-12 paper-box">
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -15,7 +15,7 @@
     </tr>   
   <tbody>
     <% @bill_conts.each do |b| %>
-    <% if b.rollback == nil || b.rollback == false %>
+    <% if b.rollback == nil %>
     <tr>
       <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
       <td><%= b.name %></td>
@@ -35,31 +35,4 @@
   </tbody>  
   </thead>
 </table>
-<%= will_paginate @bill_conts %>
 </div>
-<input type="button" value="Print" onclick="PrintElem('#allbills')" />
-<script type="text/javascript">
-
-    function PrintElem(elem)
-    {
-        Popup($(elem).html());
-    }
-
-    function Popup(data) 
-    {
-        var mywindow = window.open('', 'my div', 'height=1600,width=2400');
-        mywindow.document.write('<html><head><title>Bill</title>');
-        mywindow.document.write('</head><body style="margin:auto">');
-        mywindow.document.write(data);
-        mywindow.document.write('</body></html>');
-
-        mywindow.document.close(); // necessary for IE >= 10
-        mywindow.focus(); // necessary for IE >= 10
-
-        mywindow.print();
-        mywindow.close();
-
-        return true;
-    }
-
-</script>

@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
   def home
-  	@customer = Customer.new
-
   	# Search Customer query
   	@search = Customer.ransack(params[:q]) 
     @c = @search.result(distinct: true).desc_order.limit(1)

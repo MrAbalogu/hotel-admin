@@ -4,8 +4,21 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
+    @customer = Customer.new
+
+    # Search Customer query
     @search = Customer.ransack(params[:q]) 
-    @c = @search.result(distinct: true).desc_order
+    @c = @search.result(distinct: true).desc_order.limit(4)
+
+    # Get all rooms 
+    @rooms = Room.all
+    # Get all Room Categories
+    @room_types = RoomCategory.all
+
+    # Limit bookings and bills queries to 10
+    @recent_bookings = BookRoom.all.desc_order
+
+    @recent_bills = BillContainer.all.order("created_at DESC")
   end
 
   # GET /customers/1
@@ -72,6 +85,6 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:first_name, :last_name, :phone_number, :sex, :avatar, :book_rooms_attributes => [:id, :checked_out])
+      params.require(:customer).permit(:first_name, :last_name, :phone_number, :sex, :avatar, :email, :book_rooms_attributes => [:id, :checked_out])
     end
 end

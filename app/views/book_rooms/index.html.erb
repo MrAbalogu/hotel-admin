@@ -9,7 +9,6 @@
       <th>Days</th>
       <th>Total</th>
       <th>Disc</th>
-      <th>Stat</th>
       <th>Lodged</th>
       <th>Out</th>
       <th>Checked Out</th>
@@ -17,26 +16,29 @@
     </tr>   
   <tbody>
     <% @book_rooms.each do |b| %>
-    <% if b.rollback == nil %>
-    <tr>
-      <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
-      <td><%= b.phone_number %></td>
-      <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
-        <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %> 
-      </td>
-      <td><%= b.days %></td>
-      <td><%= b.total %></td>
-      <td><%= b.disc_amount %></td>
-      <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-      <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
-      <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-      <% if b.checked_out == true %>
-      <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
-      <% elsif b.checked_out == false %>
-      <td> in </td>
-      <% end %>
-      <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
-    </tr>
+    <% if b.rollback == nil || b.rollback == false %>
+      <tr>
+        <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+        <td><%= b.phone_number %></td>
+        <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+          <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %> 
+        </td>
+        <td><%= b.days %></td>
+        <td><%= b.total %></td>
+        <td><%= b.disc_amount %></td>
+        <% if b.midnight ==  false || b.midnight ==  nil %>
+        <td><%= b.created_at.strftime("%d %b. %Y. %H : %M")%></td>
+        <% elsif b.midnight == true %>
+        <td style="color:red"><%= b.created_at.strftime("%d %b. %Y. %H : %M") %> md </td>
+        <% end %>
+        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+        <% if b.checked_out == true %>
+        <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+        <% elsif b.checked_out == false %>
+        <td> in </td>
+        <% end %>
+        <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+      </tr>
     <% end %>
     <% end %>
   </tbody>  

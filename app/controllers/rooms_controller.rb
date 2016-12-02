@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     @lodged = BookRoom.all
-    @rooms = Room.all
+    @rooms = Room.all.asc_order
   end
 
   # GET /rooms/1
