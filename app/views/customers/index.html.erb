@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <div class="col-md-12 paper-box" style="margin-bottom:0; background-color:#fdf5e7; box-shadow:none">
   <div class="row">
     <div class="col-md-12">
@@ -9,22 +10,134 @@
       </div>
     </div>
     <% cache @c do %>
-    <% @c.each do |customer| %>
+    <% @c.each_with_index do |customer, index| %>
+    <div id="myModalz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="container">
+          <button id="button2<%= index %>"  class="btn btn-default btn-xs">2nd room</button><br>
+          <button id="button3<%= index %>"  class="btn btn-default btn-xs">3rd room</button><br>
+          <button id="button4<%= index %>"  class="btn btn-default btn-xs">4th room</button><br>
+          <button id="button5<%= index %>"  class="btn btn-default btn-xs">5th room</button><br>
+          <button id="button6<%= index %>"  class="btn btn-default btn-xs">6th room</button><br>
+          <button id="button7<%= index %>"  class="btn btn-default btn-xs">7th room</button><br>
+          <button id="button8<%= index %>"  class="btn btn-default btn-xs">8th room</button><br>
+          <button id="button9<%= index %>"  class="btn btn-default btn-xs">9th room</button><br>
+          <button id="button10<%= index %>"  class="btn btn-default btn-xs">10th room</button><br>
+        </div>
+      </div>
+    </div>
+    </div>
       <%= link_to customer do %>
-      <div class="col-md-3 profile-paper">
+      <div class="col-md-3 profile-paper" style="position:static !important;">
         <div class="col-md-3">
           <span class="glyphicon glyphicon-user"></span>
         </div>
         <div class="col-md-9">
           <p><%= customer.first_name %> <%= customer.last_name %></p>
           <p><%= customer.phone_number %></p>
+          <a id="bookbutton<%= index %>" class="btn btn-primary btn-xs">
+          Book Room
+        </a>
+        </div>
+        <div id="bookdialog<%= index %>" class="book-room-dialog-cust">
+          <%= form_for [customer, customer.book_rooms.build] do |f| %>
+          <% @room = Room.all %>
+          <div id="container<%= index %>">
+            <div class="form-group row" style="margin-top:20px">
+              <%= f.label "Room: ", class: "col-xs-2 col-form-label"%>
+              <div class="col-xs-1">
+                <%= f.select(:room, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room") %><br>
+              </div>
+              <a type="button" style="margin-left:80px" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModalz">
+              Book more rooms
+            </a>
+            <a type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal20">
+              Available rooms
+            </a>
+            <script>
+              $("#button2<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room2: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room2, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button3<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room3: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room3, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button4<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room4: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room4, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button5<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room5: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room5, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button6<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room6: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room6, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button7<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room7: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room7, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button8<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room8: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room8, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button9<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room9: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room9, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+              $("#button10<%= index %>").click(function () {
+                $(this).prop('disabled', true);
+                $("#container<%= index %>").append('<div class="form-group row" style="margin-top:20px"><%= f.label "Room10: ", class: "col-xs-2 col-form-label"%><div class="col-xs-1"><%=escape_javascript( f.select(:room10, @room.collect { |a| [a.room_number, a.id] }, :prompt => "Select room")) %><br></div></div>');
+                return false;
+              });
+            </script>
+              </div>
+            </div>
+            <div class="form-group row">
+            <%= f.label :days, class: "col-xs-2 col-form-label" %>
+            <div class="col-xs-3">
+              <%= f.number_field :days, class: "form-control" %><br>
+            </div>
+            </div>
+            <div class="form-group row">
+            <%= f.label :discount, class: "col-xs-2 col-form-label" %>
+            <div class="col-xs-3">
+              <%= f.check_box :discount, class: "form-control" %><br>
+            </div>
+            </div>
+            <div class="form-group row">
+            <%= f.label "Discount amount", class: "col-xs-2 col-form-label" %>
+            <div class="col-xs-3">
+              <%= f.number_field :disc_amount, class: "form-control" %><br>
+            </div>
+            </div>
+            <div class="form-group row">
+            <%= f.label "midnight?", class: "col-xs-2 col-form-label" %>
+            <div class="col-xs-3">
+              <%= f.check_box :midnight, class: "form-control" %><br>
+            </div>
+            </div>
+            <%= f.submit "Submit", class: "btn btn-primary" %>
+        <% end %>
         </div>
       </div>
       <% end %>
     <% end %>
-    <% end %>       
+    <% end %>
   </div>
 </div>
+
 <div id="add_customer" class="book-room-dialog" style="margin-top:10%">
 <%= render 'form', customer: @customer %>
 <%= link_to "\u2190", customers_path %>
@@ -33,7 +146,7 @@
 <div class="col-md-12">
   <div class="row">
     <div id="header-bills" class="box-header">
-      <span class="glyphicon glyphicon-exclamation-sign"></span> Unpaid Bills <a href="" type="button" data-toggle="modal" data-target="#myModalexpand1"><span class="glyphicon glyphicon-zoom-in"></span></a>
+      <span class="glyphicon glyphicon-exclamation-sign"></span> Unpaid Bills
     </div>
     <div id="header-books" class="box-header head--not-active">
       <span class="glyphicon glyphicon-calendar"></span> Checkouts <a href="" type="button" data-toggle="modal" data-target="#myModalexpand2"><a href="" type="button" data-toggle="modal" data-target="#myModalexpand2"><span class="glyphicon glyphicon-zoom-in"></span></a></a>
@@ -66,8 +179,6 @@
                 <% @deposit = recent.bills.sum(:deposit) %>
                 <% @credit = recent.bills.sum(:bill_price) %>
                 <% @balance = @deposit - @credit %>
-                <% if recent.rollback == true %>  
-                <% elsif recent.paid == false %>
                 <tr>
                   <td><%= recent.customer_first_name %> <%= recent.customer_last_name %></td>
                   <td><%= recent.name %></td>
@@ -76,63 +187,12 @@
                   <td><%= @balance %></td>
                   <td><%= link_to 'Open', recent, class: "btn btn-warning btn-xs" %></td>
                 </tr>
-                <% elsif recent.paid == true %>
-                <% end %>
-            </a>  
             <% end %>
           <% end %>
         </tbody>
     </table>
     </div>
-    <div id="myModalexpand1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="edit-modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Bills</h4>
-          </div>
-          <div class="container">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Room</th>
-                <th>Deposit</th>
-                <th>Credit</th>
-                <th>Balance</th>
-                <th>Paid</th>
-                <th>In</th>
-                <th>Out</th>
-                <th colspan="3"></th>
-              </tr>   
-            <tbody>
-              <% @recent_bills.each do |b| %>
-              <% if b.rollback == nil || b.rollback == false %>
-              <tr>
-                <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
-                <td><%= b.name %></td>
-                <% @deposit = b.bills.sum(:deposit) %>
-                <% @credit = b.bills.sum(:bill_price) %>
-                <% @balance = @deposit - @credit %>
-                <td><%= @deposit %> </td>
-                <td><%= @credit %> </td>
-                <td><%= @balance %></td>
-                <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
-                <td><%= b.created_at.strftime("%d %b. %y") %></td>
-                <td><%= (b.created_at + b.bills.first.days.days).strftime("%d %b.") %></td>
-                <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
-              </tr>
-              <% end %>
-              <% end %>
-            </tbody>  
-            </thead>
-          </table>
-          </div>  
-          <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
+
 <!------------------------------------------------------------------
 
       RECENT Bookings
@@ -146,8 +206,6 @@
             <% @recent_bookings.each do |recent| %>
                 <% @days = distance_of_time_in_words(Time.now, recent.created_at.at_midnight) %>
                 <% if (recent.created_at + recent.days.days).strftime("%d %b.") < Time.now.strftime("%d %b.") %>
-                    <% if recent.rollback == true || recent.checked_out == true %>  
-                    <% else recent.checked_out == false %>
                        <li>
                           <td><%= link_to recent.customer_first_name, customer_path(recent.customer_id) %> <%= recent.customer_last_name %></td>
                           <td><%= recent.room_number %></td>
@@ -165,9 +223,8 @@
                           <td><%= link_to '', bill_container_path(recent.customer.bill_containers.last.id), class: "glyphicon glyphicon-btc" %></td>
                           <td><%= link_to '', edit_bill_path(recent.customer.bill_containers.last.bills.first.id), class: "glyphicon glyphicon-pencil" %></td>
                         </li>
-                    <% end %> 
-                <% else %>    
-                <% end %>  
+                <% else %>
+                <% end %>
             <% end %>
         </ul>
         </nav>
@@ -179,8 +236,6 @@
             <% @recent_bookings.each do |recent| %>
                 <% @days = distance_of_time_in_words(Time.now, recent.created_at.at_midnight) %>
                 <% if (recent.created_at + recent.days.days).strftime("%d %b.") == Time.now.strftime("%d %b.") %>
-                    <% if recent.rollback == true || recent.checked_out == true %>  
-                    <% else recent.checked_out == false %>
                        <li>
                           <td><%= link_to recent.customer_first_name, customer_path(recent.customer_id) %> <%= recent.customer_last_name %></td>
                           <td><%= recent.room_number %></td>
@@ -198,7 +253,6 @@
                           <td><%= link_to '', bill_container_path(recent.customer.bill_containers.last.id), class: "glyphicon glyphicon-btc" %></td>
                           <td><%= link_to '', edit_bill_path(recent.customer.bill_containers.last.bills.first.id), class: "glyphicon glyphicon-pencil" %></td>
                         </li>
-                    <% end %> 
                 <% else %>
                 <% end %>
             <% end %>
@@ -212,8 +266,6 @@
           <% @recent_bookings.each do |recent| %>
                 <% @days = distance_of_time_in_words(Time.now, recent.created_at.at_midnight) %>
                 <% if (recent.created_at + recent.days.days).strftime("%d %b.") == (Time.now + 1.days).strftime("%d %b.") %>
-                    <% if recent.rollback == true %>  
-                    <% elsif recent.checked_out == false %>
                        <li>
                           <td><%= link_to recent.customer_first_name, customer_path(recent.customer_id) %> <%= recent.customer_last_name %></td>
                           <td><%= recent.room_number %></td>
@@ -231,8 +283,6 @@
                           <td><%= link_to '', bill_container_path(recent.customer.bill_containers.last.id), class: "glyphicon glyphicon-btc" %></td>
                           <td><%= link_to '', edit_bill_path(recent.customer.bill_containers.last.bills.first.id), class: "glyphicon glyphicon-pencil" %></td>
                         </li>
-                    <% elsif recent.checked_out == true %>
-                    <% end %> 
                 <% else %>
                 <% end %>
             <% end %>
@@ -265,37 +315,67 @@
                 <th>Out</th>
                 <th>Checked Out</th>
                 <th colspan="3"></th>
-              </tr>   
+              </tr>
             <tbody>
               <% cache @recent_bookings do %>
                 <% @recent_bookings.order("created_at DESC").each do |b| %>
-                  <% if b.rollback == nil || b.rollback == false %>
-                  <tr>
-                    <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
-                    <td><%= b.phone_number %></td>
-                    <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
-                      <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %> 
-                    </td>
-                    <td><%= b.days %></td>
-                    <td><%= b.total %></td>
-                    <td><%= b.disc_amount %></td>
-                    <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-                    <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
-                    <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-                    <% if b.checked_out == true %>
-                    <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
-                    <% elsif b.checked_out == false %>
-                    <td> in </td>
+
+                  <% if b.created_at.beginning_of_day == Time.zone.now.beginning_of_day %>
+
+                    <% if b.rollback == nil || b.rollback == false %>
+                      <tr class="new--inguest">
+                        <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+                        <td><%= b.phone_number %></td>
+                        <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+                          <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %>
+                        </td>
+                        <td><%= b.days %></td>
+                        <td><%= b.total %></td>
+                        <td><%= b.disc_amount %></td>
+                        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+                        <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+                        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+                        <% if b.checked_out == true %>
+                        <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+                        <% elsif b.checked_out == false %>
+                        <td> in </td>
+                        <% end %>
+                        <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+                      </tr>
                     <% end %>
-                    <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
-                  </tr>
+
+                <% else %>  
+
+                    <% if b.rollback == nil || b.rollback == false %>
+                      <tr class="existing--inguest">
+                        <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+                        <td><%= b.phone_number %></td>
+                        <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+                          <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %>
+                        </td>
+                        <td><%= b.days %></td>
+                        <td><%= b.total %></td>
+                        <td><%= b.disc_amount %></td>
+                        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+                        <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+                        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+                        <% if b.checked_out == true %>
+                        <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+                        <% elsif b.checked_out == false %>
+                        <td> in </td>
+                        <% end %>
+                        <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+                      </tr>
+                    <% end %>
+
                   <% end %>
+
                 <% end %>
               <% end %>
-            </tbody>  
+            </tbody>
             </thead>
           </table>
-          </div>  
+          </div>
           <div class="modal-footer">
           </div>
         </div>
@@ -305,6 +385,36 @@
   $("#add_customer").hide();
   $("#rec--bookings").hide();
   $("#rec--checkouts").hide();
+  $("#bookdialog0").hide();
+  $("#bookdialog1").hide();
+  $("#bookdialog2").hide();
+  $("#bookdialog3").hide();
+
+  $("#bookbutton0").click(function(){
+    $("#bookdialog1").hide();
+    $("#bookdialog2").hide();
+    $("#bookdialog3").hide();
+    $("#bookdialog0").toggle();
+    console.log('hola');
+  })
+  $("#bookbutton1").click(function(){
+    $("#bookdialog0").hide();
+    $("#bookdialog2").hide();
+    $("#bookdialog3").hide();
+    $("#bookdialog1").toggle();
+  })
+  $("#bookbutton2").click(function(){
+    $("#bookdialog0").hide();
+    $("#bookdialog1").hide();
+    $("#bookdialog3").hide();
+    $("#bookdialog2").toggle();
+  })
+  $("#bookbutton3").click(function(){
+    $("#bookdialog0").hide();
+    $("#bookdialog1").hide();
+    $("#bookdialog2").hide();
+    $("#bookdialog3").toggle();
+  })
 
   $("#cust_button").click(function(){
     $("#add_customer").toggle();
@@ -339,4 +449,3 @@
       "paging":         false
   })
 </script>
-

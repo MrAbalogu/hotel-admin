@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get  '/cityledger'   => "bill_containers#unpaid"
   get  '/billchart'    => "pages#bill_chart"
   get  'bin'           => "pages#bin"
-  get  'page' => "pages#home"
+  get  'admin' => "pages#admin"
 
   root   'customers#index'
 

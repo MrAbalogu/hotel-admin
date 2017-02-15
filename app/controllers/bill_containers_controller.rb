@@ -37,7 +37,7 @@ class BillContainersController < ApplicationController
   def destroy 
     @bill_cont.destroy
     flash[:notice] = "Bill has been deleted"
-    redirect_to @bill_cont
+    redirect_to customer_path(@bill_cont.customer_id)
   end  
 
   private 

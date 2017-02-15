@@ -1,28 +1,16 @@
 class PagesController < ApplicationController
-  def home
-  	# Search Customer query
-  	@search = Customer.ransack(params[:q]) 
-    @c = @search.result(distinct: true).desc_order.limit(1)
+  def admin
+  	@customers = Customer
+    yesterday = Time.now - 1.day
+    @books_today = BookRoom.where("created_at >= ?", Time.zone.now.beginning_of_day)
+    @books_yday = BookRoom.where(["created_at >= ? AND created_at <= ?", 
+                                 yesterday.beginning_of_day, yesterday.end_of_day])
+    @deposit_today = Bill.where("created_at >= ?", Time.zone.now.beginning_of_day)
+    @deposit_yday = Bill.where(["created_at >= ? AND created_at <= ?", 
+                                 yesterday.beginning_of_day, yesterday.end_of_day])
 
-    # Get all rooms 
-    @rooms = Room.all
-    # Get all Room Categories
-    @room_types = RoomCategory.all
-
-    # Limit bookings and bills queries to 10
-    @recent_bookings = BookRoom.all.order("created_at DESC").limit(10)
-    @recent_bookings_expand = BookRoom.all.order("created_at DESC").limit(20)
+    @recent_bookings = BookRoom.where(rollback: nil, checked_out: false).desc_order
     # require 'pry'; binding.pry
-    @recent_bills = BillContainer.all.order("created_at DESC").paginate(page: params[:page], per_page: 10)
-    @recent_bills_expand = BillContainer.all.order("created_at DESC").limit(20)
-
-    # Search Bills query
-    @search1 = BillContainer.ransack(params[:q]) 
-    # @bill_conts = @search1.result(distinct: true).desc_order 
-
-    #  Search Booked rooms query 
-    @search2 = BookRoom.ransack(params[:q]) 
-    @bill_conts = @search2.result(distinct: true).desc_order
   end
 
   def bill_chart 

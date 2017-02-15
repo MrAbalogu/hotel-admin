@@ -15,22 +15,20 @@
     </tr>   
   <tbody>
     <% @bill_conts.each do |b| %>
-    <% if b.rollback == nil || b.rollback == false %>
-    <tr>
-      <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
-      <td><%= b.name %></td>
-      <% @deposit = b.bills.sum(:deposit) %>
-      <% @credit = b.bills.sum(:bill_price) %>
-      <% @balance = @deposit - @credit %>
-      <td><%= @deposit %> </td>
-      <td><%= @credit %> </td>
-      <td><%= @balance %></td>
-      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
-      <td><%= b.created_at.strftime("%d %b. %y") %></td>
-      <td><%= (b.created_at + b.bills.first.days.days).strftime("%d %b.") %></td>
-      <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
-    </tr>
-    <% end %>
+      <tr>
+        <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+        <td><%= b.name %></td>
+        <% @deposit = b.bills.sum(:deposit) %>
+        <% @credit = b.bills.sum(:bill_price) %>
+        <% @balance = @deposit - @credit %>
+        <td><%= @deposit %> </td>
+        <td><%= @credit %> </td>
+        <td><%= @balance %></td>
+        <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+        <td><%= (b.created_at + b.bills.first.days.days).strftime("%d %b.") %></td>
+        <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
+      </tr>
     <% end %>
   </tbody>  
   </thead>

@@ -114,5 +114,19 @@ h1, h2, h3, h4, h5, h6 {
   color: $brand-body-color;
   background: $brand-selection-color;
 }
+table
+{
+    counter-reset: rowNumber;
+}
 
+table tr > td:first-child
+{
+    counter-increment: rowNumber;
+}
 
+table tr td:first-child::before
+{
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+}

@@ -14,4 +14,12 @@ class BillContainer < ApplicationRecord
   	self.paid = false 
   	self.save 
   end 	
+
+  def sum_deposit
+    self.bills.sum(:deposit) 
+  end 
+
+  def sum_bill_price
+    self.bills.sum(:bill_price)
+  end   
 end

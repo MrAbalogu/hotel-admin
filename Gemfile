@@ -19,6 +19,9 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'heroku', '~> 3.43', '>= 3.43.12'
 gem 'figaro'
 gem 'aws-sdk', '~> 2.3'
+gem 'rack-cors', :require => 'rack/cors'
+gem "chartkick"
+gem 'groupdate'
 # gem "bullet", :group => "development"
 # gem 'react-rails'
 

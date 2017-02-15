@@ -1,28 +1,180 @@
-<li>
-  <%= link_to "Room type", room_categories_path %>
-</li>
-<li>
-  <%= link_to "Rooms", rooms_path %>
-</li>
-<li> 
-  <%= link_to "Customers", customers_path %>
-</li>
-<li> 
-  <%= link_to "All Bookings", book_rooms_path %>
-</li>
-<li> 
-  <%= link_to "All Bills", bill_containers_path %>
-</li>
+<div id="wrapper">
+<div id="sidebar-wrapper" style="top:0">
+	  <ul class="sidebar-list">  
+	    <a href="/">
+	          <span class="glyphicon glyphicon-home" style="font-size:40px; margin:10px 40%; color:gray"></span>
+	    </a>
+	    <div class="user_profile_container" style="text-align:center">
+	    	<%= image_tag "img-male", size: "156x150", style: "margin:0 18%" %>
+	    	<li>
+	    	<span class="glyphicon glyphicon-user"> chin
+	    	</li>
+	    </div>
+	    <li> 
+		 <span class="glyphicon glyphicon-file"> <a href="/registration.pdf">Registration form</a>
+		</li>
+	    <li>
+		 <span class="glyphicon glyphicon-modal-window"> <%= link_to "Room type", room_categories_path %>
+		</li>
+		<li>
+		 <span class="glyphicon glyphicon-home"> <%= link_to "Rooms", rooms_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-user"> <%= link_to "Customers", customers_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-duplicate"> <%= link_to "All Bookings", book_rooms_path %>
+		</li>
+		<li> 
+		 <span class="glyphicon glyphicon-folder-open"> <%= link_to "All Bills", bill_containers_path %>
+		</li>
+		<li> 
+	     <span class="glyphicon glyphicon-bookmark"> <a href="/bills">Search Receipt number</a>
+	    </li>
+		<li> 
+		 <span class="glyphicon glyphicon-book"> <%= link_to "Make Reservation", reservations_path %>
+		</li>
+		<li> 
+	     <span class="glyphicon glyphicon-warning-sign"> <a href="/cityledger">Unpaid Bills</a>
+	    </li>
+	    <li> 
+	     <span class="glyphicon glyphicon-trash"> <a href="/bin">Recycle Bin</a>
+	    </li>
+	    <li> 
+	     <span class="glyphicon glyphicon-log-out"> <%= link_to "Log out", log_out %>
+	    </li>
+	  </ul>
+	</div>
+	</div>
 
+	<div class="col-md-9" style="margin-top:20px; float:right">
+		<div class="col-md-2 panel panel-success">
+			<div class="panel-body">
+				Customers
+			</div>
+			<div class="panel-footer"><%= @customers.count %></div>
+		</div>
+		<div class="col-md-2 panel panel-success">
+			<div class="panel-body">
+				Today
+			</div>
+			<div class="panel-footer">
+				<%= @books_today.count %>
+			</div>
+		</div>
+		<div class="col-md-2 panel panel-success">
+			<div class="panel-body">
+				Yesterday
+			</div>
+			<div class="panel-footer"><%= @books_yday.count %></div>
+		</div>
+		<div class="col-md-2 panel panel-success">
+			<div class="panel-body">
+				Cash Today
+			</div>
+			<div class="panel-footer"><%= @deposit_today.sum(:deposit) %></div>
+		</div>
+		<div class="col-md-2 panel panel-success">
+			<div class="panel-body">
+				Yesterday
+			</div>
+			<div class="panel-footer"><%= @deposit_yday.sum(:deposit) %></div>
+		</div>
+	</div>
 
-<h1>Unicode Icons</h1>
+	<div class="col-md-9" style="margin-top:20px; float:right">
+		<%= line_chart BookRoom.group_by_day(:created_at).count %>
+	</div>
 
-&#8358; - naira
+	<div class="col-md-9" style="margin-top:20px; float:right">
+		<a href="" type="button" data-toggle="modal" data-target="#myModalexpand2"><a href="" type="button" data-toggle="modal" data-target="#myModalexpand2"><span class="btn btn-info">in guest</span></a></a>
 
-<h4>C/C++/Java source code: </h4>
-Edit "\u270E" ---> <%= "\u270E" %><br>
-Back "\u2190" ---> <%= "\u2190" %><br>
-Submit "\u27A1" ---> <%= "\u27A1" %><br>
-False "\u274C" ---> <%= "\u274C" %><br>
-False black "\u2717" ---> <%= "\u2717" %><br>
-True "\u2713" ---> <%= "\u2713" %><br>
+	<div id="myModalexpand2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="edit-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Bookings</h4>
+          </div>
+          <div class="container">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Room/s </th>
+                <th>Days</th>
+                <th>Total</th>
+                <th>Disc</th>
+                <th>Stat</th>
+                <th>Lodged</th>
+                <th>Out</th>
+                <th>Checked Out</th>
+                <th colspan="3"></th>
+              </tr>
+            <tbody>
+              <% cache @recent_bookings do %>
+                <% @recent_bookings.order("created_at DESC").each do |b| %>
+
+                	<% if b.created_at.beginning_of_day == Time.zone.now.beginning_of_day %>
+                		
+	                  <% if b.rollback == nil || b.rollback == false %>
+	                  <tr class="new--inguest">
+	                    <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+	                    <td><%= b.phone_number %></td>
+	                    <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+	                      <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %>
+	                    </td>
+	                    <td><%= b.days %></td>
+	                    <td><%= b.total %></td>
+	                    <td><%= b.disc_amount %></td>
+	                    <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+	                    <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+	                    <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+	                    <% if b.checked_out == true %>
+	                    <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+	                    <% elsif b.checked_out == false %>
+	                    <td> in </td>
+	                    <% end %>
+	                    <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+	                  </tr>
+	                  <% end %>
+
+	                <% else %>  
+
+	                	<% if b.rollback == nil || b.rollback == false %>
+		                  <tr class="existing--inguest">
+		                    <td><%= b.customer_first_name %> <%= b.customer_last_name %></td>
+		                    <td><%= b.phone_number %></td>
+		                    <td><%= b.room_number %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> <%= b.room_no11 %> <%= b.room_no12 %> <%= b.room_no13 %> <%= b.room_no14 %> <%= b.room_no15 %> <%= b.room_no16 %> <%= b.room_no17 %> <%= b.room_no18 %> <%= b.room_no19 %> <%= b.room_no20 %> <%= b.room_no21 %> <%= b.room_no22 %> <%= b.room_no23 %> <%= b.room_no24 %> <%= b.room_no25 %> <%= b.room_no26 %> <%= b.room_no27 %>
+		                      <%= b.room_no28 %> <%= b.room_no29 %> <%= b.room_no30 %>
+		                    </td>
+		                    <td><%= b.days %></td>
+		                    <td><%= b.total %></td>
+		                    <td><%= b.disc_amount %></td>
+		                    <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+		                    <td><%= b.created_at.strftime("%d %b. %Y. %H : %M") %></td>
+		                    <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+		                    <% if b.checked_out == true %>
+		                    <td><%= b.updated_at.strftime("%d %b. %Y. %H : %M") %></td>
+		                    <% elsif b.checked_out == false %>
+		                    <td> in </td>
+		                    <% end %>
+		                    <td><%= link_to "Open", customer_path(b.customer_id), class: "btn btn-primary btn-xs" %></td>
+		                  </tr>
+	                    <% end %>
+
+	                <% end %>
+
+                <% end %>
+              <% end %>
+            </tbody>
+            </thead>
+          </table>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>

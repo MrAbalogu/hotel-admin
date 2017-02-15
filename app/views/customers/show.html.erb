@@ -175,141 +175,84 @@
 			<button id="button-toggle" type="button" class="btn btn-primary btn-lg">
 		      Book Room
 		    </button>
-			<div class="col-md-12 paper-box">
-			<a href="" type="button" data-toggle="modal" data-target="#myModalexpand">Expand</a>
-			<table class="table table-hover">
-			  <thead>
-			    <tr>
-			      <th>Room</th>
-			      <th>Status</th>
-			      <th>Days</th>
-			      <th>In</th>
-			      <th>Out</th>
-			      <th>Chkd Out</th>
-			    </tr>   
-			  <tbody>
-			    <% @booked.each do |b| %>
-			    <tr>
-			      <% if b.checked_out == true %>
-			      	<td><%= link_to b.room_number, room_path(b.room) %></td>
-			        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-			        <td><%= b.days %></td>
-			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-			        <td><%= b.updated_at.strftime("%d %b. %y") %></td>
-			        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
-			      <% elsif b.rollback == true %>
-			        <td><%= link_to b.room_number, room_path(b.room) %></td>
-			        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-			        <td></td>
-			        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-			      <% else %>  
-			      	<td><%= link_to b.room_number, room_path(b.room) %></td>
-			        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-			        <td><%= b.days %></td>
-			        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-			        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-			        <td></td>
-			        <td>
-	                    <%= form_for b do |f| %>
-	                      <%= f.hidden_field :checked_out, value: true %>
-	                      <%= f.submit 'Checkout', class: 'btn btn-danger btn-xs' %>
-	                    <% end %>
-	                </td>
-			        <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
-			      <% end %>
-			    </tr>
-			    <% end %>
-			  </tbody>  
-			  </thead>
-			</table>
-			</div>
 		</div>	
 	</div>	
 
-	<div id="myModalexpand" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="edit-modal">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Bookings</h4>
-	    </div>
-	    <div class="container">
-	    	<table class="table table-hover">
-	  <thead>
-	    <tr>
-	      <th>Room</th>
-	      <th>Status</th>
-	      <th>Days</th>
-	      <th>In</th>
-	      <th>Out</th>
-	      <th>Chkd Out</th>
-	    </tr>   
-	  <tbody>
-	    <% @booked.each do |b| %>
-	    <tr>
-	      <% if b.checked_out == true %>
-	      	<td><%= link_to b.room_number, room_path(b.room) %></td>
-	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-	        <td><%= b.days %></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td><%= b.updated_at.strftime("%d %b. %y") %></td>
-	        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
-	      <% elsif b.rollback == true %>
-	        <td><%= link_to b.room_number, room_path(b.room) %></td>
-	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td></td>
-	        <td><span style="color:red; font-style:italic">Rolled back</span></td>
-	      <% else %> 
-	      	<td><%= link_to b.room_number, room_path(b.room) %> <%= b.room_no2 %> <%= b.room_no3 %> <%= b.room_no4 %> <%= b.room_no5 %> <%= b.room_no6 %> <%= b.room_no7 %> <%= b.room_no8 %> <%= b.room_no9 %> <%= b.room_no10 %> </td>
-	        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
-	        <td><%= b.days %></td>
-	        <td><%= b.created_at.strftime("%d %b. %y") %></td>
-	        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
-	        <td></td>
-	        <td><%= link_to 'Check out', book_room_path(b), class: "btn btn-danger btn-xs" %></td>
-	        <td><%= link_to '', edit_book_room_path(b), class: "glyphicon glyphicon-trash" %></td>
-	      <% end %>
-	    </tr>
-	    <% end %>
-	  </tbody>  
-	  </thead>
-	</table>
-	    </div>	
-	    <div class="modal-footer">
-	    </div>
-	  </div>
-	</div>
-	</div>
-	
-	<div class="col-md-6">
-		<h3>Bills</h3>
-		<div class="col-md-12 paper-box">
+	<div class="col-md-12 paper-box">
+		<div class="col-md-6">
 		<table class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th>Room number</th>
+		      <th>Room</th>
 		      <th>Status</th>
-		      <th>Date</th>
-		      <th></th>
+		      <th>Days</th>
+		      <th>In</th>
+		      <th>Out</th>
 		    </tr>   
 		  <tbody>
-		    <% @bill_containers.each do |b| %>
+		    <% @customer.book_rooms.where(checked_out: false).each do |b| %>
 		    <tr>
-		      <td><%= b.name %></td>
-		      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
-		      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
-		      <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
+		      <% if b.checked_out == true %>
+		      	<td><%= link_to b.room_number, room_path(b.room) %></td>
+		        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+		        <td><%= b.days %></td>
+		        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+		        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+		        <td><%= b.updated_at.strftime("%d %b. %y") %></td>
+		        <td> <span style="color:green; font-style:italic">Checked out</span> </td>
+		      <% elsif b.rollback == true %>
+		        <td><%= link_to b.room_number, room_path(b.room) %></td>
+		        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+		        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+		        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+		        <td></td>
+		        <td><span style="color:red; font-style:italic">Rolled back</span></td>
+		      <% else %>  
+		      	<td><%= link_to b.room_number, room_path(b.room) %></td>
+		        <td><%= b.checked_out? ? "\u2717" : "\u2713" %></td>
+		        <td><%= b.days %></td>
+		        <td><%= b.created_at.strftime("%d %b. %y") %></td>
+		        <td><%= (b.created_at + b.days.days).strftime("%d %b.") %></td>
+		        <td></td>
+		        <td>
+		            <%= form_for b do |f| %>
+		              <%= f.hidden_field :checked_out, value: true %>
+		              <%= f.submit 'Checkout', class: 'btn btn-danger btn-xs' %>
+		            <% end %>
+		        </td>
+		        <td>
+		        	<%= link_to '', [b.customer, b], method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-trash" %>
+		        </td>
+		      <% end %>
 		    </tr>
 		    <% end %>
 		  </tbody>  
 		  </thead>
 		</table>
+		</div>
+
+		<div class="col-md-6">
+			<table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th>Room number</th>
+			      <th>Status</th>
+			      <th>Date</th>
+			      <th></th>
+			    </tr>   
+			  <tbody>
+			    <% @customer.bill_containers.where(paid: false).each do |b| %>
+			    <tr>
+			      <td><%= b.name %></td>
+			      <td><%= b.paid? ? "\u2713" : "\u2717" %></td>
+			      <td><%= b.created_at.strftime("%d %b. %Y") %></td>
+			      <td><%= link_to 'Open', bill_container_path(b), class: "btn btn-primary btn-xs" %></td>
+			      <td><%= link_to '', [b.customer, b], method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-trash" %></td>
+			    </tr>
+			    <% end %>
+			  </tbody>  
+			  </thead>
+			</table>
 		</div>
 	</div>
 

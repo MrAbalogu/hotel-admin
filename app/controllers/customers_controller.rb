@@ -7,25 +7,25 @@ class CustomersController < ApplicationController
     @customer = Customer.new
 
     # Search Customer query
-    @search = Customer.ransack(params[:q]) 
-    @c = @search.result(distinct: true).desc_order.limit(4)
+    @search = Customer.ransack(params[:q])
+    @c = @search.result(distinct: true).desc_order.limit(4).includes(:book_rooms, :bill_containers)
 
-    # Get all rooms 
-    @rooms = Room.all
+    @recent_bills = BillContainer.where(rollback: nil, paid: false).includes(:bills).desc_order
+
     # Get all Room Categories
     @room_types = RoomCategory.all
 
-    # Limit bookings and bills queries to 10
-    @recent_bookings = BookRoom.all.desc_order
+    @customers = Customer.all
 
-    @recent_bills = BillContainer.all.order("created_at DESC")
+    # Limit bookings and bills queries to 10
+    @recent_bookings = BookRoom.where(rollback: nil, checked_out: false).desc_order
+
+    # require 'pry'; binding.pry
   end
 
   # GET /customers/1
   # GET /customers/1.json
   def show
-    @booked = @customer.book_rooms.order("created_at DESC")
-    @bill_containers = @customer.bill_containers.order("created_at DESC")
   end
 
   # GET /customers/new
@@ -44,7 +44,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+        format.html { redirect_to customers_url, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }

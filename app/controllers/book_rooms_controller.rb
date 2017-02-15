@@ -13,14 +13,14 @@ class BookRoomsController < ApplicationController
   	@customer = Customer.find(params[:customer_id]) 
   	@customer_room = @customer.book_rooms.create(book_rooms_params)
   	flash[:notice] = "Customer has been added to room"
-  	redirect_to customer_path(@customer)
+  	redirect_to customers_path
   end 
 
   def destroy 
   	@customer = Customer.find(params[:customer_id]) 
   	@customer_room = @customer.book_rooms.find(params[:id])
   	@customer_room.destroy
-  	flash[:notice] = "Customer room has been deleted"
+  	flash[:notice] = "Booked room has been deleted"
   	redirect_to customer_path(@customer)
   end 
 
